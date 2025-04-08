@@ -1,20 +1,22 @@
 # Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/*.so
 .Python
-env/
-venv/
-.env/
-.venv/
+**/env/
+**/venv/
+**/.env/
+**/.venv/
+
 # IDEs e editores
-.idea/
-.vscode/
-*.swp
-*.swo
+**/.idea/
+**/.vscode/
+**/*.swp
+**/*.swo
+
 # Arquivos do sistema
 .DS_Store
 
 # Pessoal
-trash/
+**/trash/
