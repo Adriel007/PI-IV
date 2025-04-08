@@ -15,3 +15,6 @@ venv/
 *.swo
 # Arquivos do sistema
 .DS_Store
+
+# Pessoal
+trash/
