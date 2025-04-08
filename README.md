@@ -29,6 +29,7 @@ Este projeto consiste em uma aplicação desktop desenvolvida em Python que perm
 - **Matplotlib** - Visualização de dados
 - **Google Sheets API** - Integração com planilhas online
 ## 📁 Estrutura do Projeto
+```
 PI-IV/
 ├── app/
 │   ├── data/
@@ -41,8 +42,7 @@ PI-IV/
 │   │   └── main_window.py   # Interface principal
 │   └── main.py              # Ponto de entrada da aplicação
 └── README.md
-
-
+```
 
 ## ⚙️ Como Executar
 1. Clone o repositório:
