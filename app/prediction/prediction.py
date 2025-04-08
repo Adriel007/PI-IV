@@ -1,50 +1,75 @@
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
 import matplotlib.pyplot as plt
-
 class Predictor:
     def __init__(self, df):
         self.df = df
-        self.model = LinearRegression()
-
-    def train_model(self):
-        """Treina o modelo de regressão linear e retorna métricas de desempenho."""
-        X = self.df["ano"].values.reshape(-1, 1)
-        y = self.df["taxa_desistencia"].values
-        self.model.fit(X, y)
-        # Predições no conjunto de treinamento para calcular as métricas
-        y_pred = self.model.predict(X)
-        mse = mean_squared_error(y, y_pred)
-        r2 = r2_score(y, y_pred)
-        return mse, r2
-
-    def predict(self, future_years):
-        """Prevê a taxa de desistência para os próximos anos."""
-        X_future = np.array(future_years).reshape(-1, 1)
-        return self.model.predict(X_future)
-
+        self.models = {
+            'linear': LinearRegression(),
+            'ridge': Ridge(),
+            'lasso': Lasso(),
+            'random_forest': RandomForestRegressor()
+        }
+        self.best_model = None
+        self.best_score = float('-inf')
+    def prepare_data(self):
+        X = self.df[["ano", "semestre"]].values
+        y = self.df.iloc[:, 4:].sum(axis=1).values
+        return train_test_split(X, y, test_size=0.2, random_state=42)
+    def train_models(self):
+        X_train, X_test, y_train, y_test = self.prepare_data()
+        
+        results = {}
+        for name, model in self.models.items():
+            model.fit(X_train, y_train)
+            y_pred = model.predict(X_test)
+            score = r2_score(y_test, y_pred)
+            results[name] = {
+                'model': model,
+                'score': score,
+                'mse': mean_squared_error(y_test, y_pred)
+            }
+            
+            if score > self.best_score:
+                self.best_score = score
+                self.best_model = model
+                
+        return results
+    def predict(self, future_periods):
+        if self.best_model is None:
+            self.train_models()
+            
+        future_X = np.array([[year, sem] 
+                            for year in range(2024, 2027) 
+                            for sem in [1, 2]])
+        return self.best_model.predict(future_X)
     def plot_predictions(self, future_years):
-        """Plota os dados históricos, a linha de regressão e as previsões futuras, exibindo as métricas."""
-        mse, r2 = self.train_model()
-        X_hist = self.df["ano"].values.reshape(-1, 1)
-        y_hist = self.df["taxa_desistencia"].values
-
-        plt.figure(figsize=(10, 6))
-        plt.scatter(X_hist, y_hist, color='blue', label='Dados Históricos')
-
-        # Linha de regressão baseada nos dados históricos
-        x_line = np.linspace(min(X_hist), max(X_hist), 100).reshape(-1, 1)
-        y_line = self.model.predict(x_line)
-        plt.plot(x_line, y_line, color='red', label='Linha de Regressão')
-
-        # Previsões futuras
-        X_future = np.array(future_years).reshape(-1, 1)
-        y_future = self.predict(future_years)
-        plt.scatter(X_future, y_future, color='green', marker='x', s=100, label='Previsões Futuras')
-
+        results = self.train_models()
+        
+        plt.figure(figsize=(12, 8))
+        
+        # Dados históricos
+        X = self.df[["ano", "semestre"]].values
+        y = self.df.iloc[:, 4:].sum(axis=1).values
+        plt.scatter(X[:, 0] + X[:, 1]/2, y, color='blue', label='Dados Históricos')
+        
+        # Previsões
+        future_X = np.array([[year, sem] 
+                            for year in future_years 
+                            for sem in [1, 2]])
+        future_years_plot = np.array([year + sem/2 
+                                    for year in future_years 
+                                    for sem in [1, 2]])
+        for name, result in results.items():
+            y_pred = result['model'].predict(future_X)
+            plt.plot(future_years_plot, y_pred, '--', label=f'{name} (R²: {result["score"]:.2f})')
+        
         plt.xlabel("Ano")
-        plt.ylabel("Taxa de Desistência")
-        plt.title(f"Previsão de Desistência (MSE: {mse:.2f}, R²: {r2:.2f})")
+        plt.ylabel("Desistências Previstas")
+        plt.title("Previsões de Desistência por Diferentes Modelos")
         plt.legend()
+        plt.grid(True)
         plt.show()

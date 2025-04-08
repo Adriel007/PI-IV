@@ -35,34 +35,46 @@ class MainWindow(QMainWindow):
         self.remove_button = QPushButton('Remover Planilhas', self)
         self.remove_button.clicked.connect(self.remove_spreadsheet)
         layout.addWidget(self.remove_button)
-
+        self.template_button = QPushButton('Baixar Template', self)
+        self.template_button.clicked.connect(self.download_template)
+        layout.addWidget(self.template_button)
         # Widget central
         central_widget = QWidget(self)
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
-
         self.analyze_button = QPushButton('Analisar Dados', self)
         self.analyze_button.clicked.connect(self.show_analysis)
         layout.addWidget(self.analyze_button)
-        # Widget central
-        central_widget = QWidget(self)
-
-    def connect_remote_spreadsheet(self):
-        self.status_label.setText("Conectando com planilha remota...")
+    def download_template(self):
+        """Permite ao usuário baixar um template vazio com as colunas necessárias."""
         try:
-            # Mostra diálogo de autenticação
-            auth_data = self._show_auth_dialog()
-            if auth_data:
-                sheet_url, credentials_path = auth_data
-                # Tenta conectar com a planilha usando as credenciais fornecidas
-                loader = DataLoader(google_sheet_url=sheet_url, credentials_path=credentials_path)
-                self.loaded_data = loader.load_data()
-                self.status_label.setText("Status: Planilha remota carregada com sucesso!")
-            else:
-                self.status_label.setText("Status: Conexão cancelada pelo usuário.")
+            options = QFileDialog.Options()
+            file_name, file_type = QFileDialog.getSaveFileName(
+                self,
+                "Salvar Template",
+                "",
+                "CSV (*.csv);;Excel (*.xlsx)",
+                options=options
+            )
+            
+            if file_name:
+                # Colunas obrigatórias do template
+                columns = ["curso", "turno", "semestre", "ano", "1° C", "2° C", "3° C", "4° C", "5° C", "6° C"]
+                
+                if file_name.endswith('.csv'):
+                    import pandas as pd
+                    # Criar DataFrame vazio com as colunas
+                    df = pd.DataFrame(columns=columns)
+                    df.to_csv(file_name, index=False)
+                elif file_name.endswith('.xlsx'):
+                    import pandas as pd
+                    # Criar DataFrame vazio com as colunas
+                    df = pd.DataFrame(columns=columns)
+                    df.to_excel(file_name, index=False)
+                    
+                self.status_label.setText(f"Template salvo com sucesso em: {file_name}")
         except Exception as e:
-            QMessageBox.critical(self, "Erro", f"Erro ao conectar com planilha remota:\n{e}")
-            self.status_label.setText("Status: Falha ao carregar planilha remota.")
+            QMessageBox.critical(self, "Erro", f"Erro ao gerar template:\n{e}")
 
     def _show_auth_dialog(self):
         """Mostra um diálogo para inserir URL da planilha e caminho das credenciais."""
@@ -157,12 +169,23 @@ class MainWindow(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, "Erro", f"Erro ao remover a planilha:\n{e}")
                 self.status_label.setText("Status: Falha na remoção da planilha.")
-
-def main():
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
-
-if __name__ == "__main__":
-    main()
+    def connect_remote_spreadsheet(self):
+        """Conecta com uma planilha remota do Google Sheets."""
+        try:
+            # Mostrar diálogo para obter URL e credenciais
+            auth_result = self._show_auth_dialog()
+            if auth_result:
+                sheet_url, credentials_path = auth_result
+                
+                # Criar instância do DataLoader com as credenciais do Google Sheets
+                loader = DataLoader(
+                    google_sheet_url=sheet_url,
+                    credentials_path=credentials_path
+                )
+                
+                # Carregar os dados
+                self.loaded_data = loader.load_data()
+                self.status_label.setText(f"Status: Planilha remota conectada com sucesso!")
+        except Exception as e:
+            QMessageBox.critical(self, "Erro", f"Erro ao conectar com planilha remota:\n{e}")
+            self.status_label.setText("Status: Falha na conexão com planilha remota.")
