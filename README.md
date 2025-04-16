@@ -73,7 +73,7 @@ python app/main.py
 
 ## ✨ Autores
 * **Adriel Andrade** - *Desenvolvimento Inicial* - [GitHub](https://github.com/adriel007)
-* **Henrique Freitas** - *Desenvolvimento Inicial* - [GitHub](https://github.com/)
+* **Henrique Freitas** - *Desenvolvimento Inicial* - [GitHub](https://github.com/HenriqueRDF)
 * **Kaíke Silva** - *Desenvolvimento Inicial* - [GitHub](https://github.com/)
 
 ## 📊 Status do Projeto
