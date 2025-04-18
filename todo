@@ -9,6 +9,7 @@
 - [ x ] Implementar filtros avançados para análise de dados [/app/ui/charts.py]
 - [ x ] Adicionar opção de exportação de gráficos [/app/ui/charts.py]
 - [ x ] Implementar tela de configurações gerais [/app/ui/main_window.py]
+- [   ] Interface de manipulação de banco de dados [/app/ui/main_window.py]
 
 ### 3. Análise Preditiva
 - [ x ] Implementar mais modelos de machine learning [/app/prediction/prediction.py]
@@ -30,25 +31,26 @@
 - [ x ] Adicionar controle de versão de planilhas [/app/data/data_loader.py]
 
 ### 6. Documentação
-- [ ] Criar documentação técnica detalhada [/README.md]
-- [ ] Adicionar docstrings em todas as funções [Todos os arquivos .py]
-- [ ] Criar manual do usuário [/docs/user_manual.md] (novo arquivo)
-- [ ] Documentar APIs e integrações [/docs/api_docs.md] (novo arquivo)
+- [   ] Criar documentação técnica detalhada [/README.md]
+- [   ] Adicionar docstrings em todas as funções [Todos os arquivos .py]
+- [   ] Criar manual do usuário [/docs/user_manual.md] (novo arquivo)
+- [   ] Documentar APIs e integrações [/docs/api_docs.md] (novo arquivo)
 
 ### 7. Segurança
-- [ ] Implementar sistema de autenticação [/app/auth/] (nova pasta)
-- [ ] Adicionar criptografia de dados sensíveis [/app/utils/encryption.py] (novo arquivo)
-- [ ] Implementar controle de acesso [/app/auth/]
-- [ ] Adicionar validação de entrada de dados [/app/data/data_validator.py] (novo arquivo)
+- [   ] Implementar sistema de autenticação [/app/auth/] (nova pasta)
+- [   ] Implementar controle de acesso [/app/auth/]
+- [   ] Adicionar validação de entrada de dados [/app/data/data_validator.py] (novo arquivo)
 
 ### 8. Otimizações
-- [ ] Otimizar processamento de dados grandes [/app/data/data_processor.py]
-- [ ] Melhorar performance dos gráficos [/app/ui/charts.py]
-- [ ] Implementar carregamento lazy de dados [/app/data/data_loader.py]
-- [ ] Otimizar consultas ao banco de dados [/app/data/db_manager.py]
+- [   ] Otimizar processamento de dados grandes [/app/data/data_processor.py]
 
 ### 9. Recursos Adicionais
-- [ ] Implementar sistema de notificações [/app/utils/notifications.py] (novo arquivo)
-- [ ] Adicionar relatórios automáticos [/app/reports/] (nova pasta)
-- [ ] Implementar exportação em diferentes formatos [/app/utils/export.py] (novo arquivo)
-- [ ] Adicionar dashboard personalizado [/app/ui/dashboard.py] (novo arquivo)
+- [   ] Adicionar relatórios automáticos [/app/reports/] (nova pasta)
+- [   ] Implementar exportação em diferentes formatos [/app/utils/export.py] (novo arquivo)
+
+---
+
+### Consertar
+- [   ] Fonte e fundo branco em tabs no Windows em tema escuro [/app/ui/charts.py]
+- [   ] Ícones não carregam em Windows [/app/ui/main_window.py]
+- [   ] Plot correto dos gráficos [/app/ui/charts.py]
