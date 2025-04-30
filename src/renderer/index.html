@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Planilhas</title>
+    <script defer src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
+    <script defer src="./scripts.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD"
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-white text-gray-900 h-screen">
+    <!-- Tela de carregamento -->
+    <div
+      class="fixed inset-0 bg-white flex items-center justify-center z-50"
+      id="loading">
+      <div
+        class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+    </div>
+
+    <!-- Container principal ocupando a altura da janela -->
+    <div class="h-full flex flex-col hidden" id="container">
+      <!-- Barra de navegação -->
+      <div
+        class="flex justify-between items-center bg-red-600 text-white p-4 rounded-t-lg">
+        <h1 class="text-2xl font-bold">Gerenciador de Planilhas</h1>
+        <button
+          id="toggle-theme-btn"
+          class="flex items-center space-x-2 text-lg text-white hover:text-gray-200 bg-red-700 hover:bg-red-800 px-4 py-2 rounded-lg">
+          Alternar Tema
+          <i class="bi bi-moon-fill"></i>
+        </button>
+      </div>
+
+      <!-- Abas -->
+      <div
+        class="flex flex-wrap justify-start sm:justify-center space-x-4 mt-6 px-4">
+        <button
+          id="planilhas-tab"
+          class="text-lg text-red-600 hover:text-red-800 w-full sm:w-auto py-2 px-4 text-center border-b-2 border-red-600">
+          <i class="bi bi-file-earmark-spreadsheet"></i> Gerenciamento
+        </button>
+        <button
+          id="analise-tab"
+          class="text-lg text-red-600 hover:text-red-800 w-full sm:w-auto py-2 px-4 text-center">
+          <i class="bi bi-bar-chart-line"></i> Análise de Dados
+        </button>
+        <button
+          id="config-tab"
+          class="text-lg text-red-600 hover:text-red-800 w-full sm:w-auto py-2 px-4 text-center">
+          <i class="bi bi-sliders"></i> Configurações
+        </button>
+      </div>
+
+      <!-- Conteúdo das Abas (ocupando o espaço restante) -->
+      <div class="flex-grow mt-6 overflow-auto px-4 pb-4">
+        <!-- Conteúdo da aba Gerenciamento -->
+        <div id="planilhas-content" class="mt-6">
+          <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-200">
+            <h2 class="font-semibold text-xl">Gerenciamento de Planilhas</h2>
+
+            <!-- Área de upload (inicialmente visível) -->
+            <div id="upload-area" class="mt-4">
+              <input
+                type="file"
+                id="file-input"
+                class="mt-4 border border-gray-300 p-2 rounded-lg w-full" />
+              <button
+                id="load-local-btn"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-blue-700">
+                <i class="bi bi-upload"></i> Carregar Planilha
+              </button>
+            </div>
+
+            <button
+              id="connect-remote-btn"
+              class="bg-green-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-green-700">
+              <i class="bi bi-cloud-arrow-up"></i> Conectar Planilha Remota
+            </button>
+
+            <button
+              id="download-template-btn"
+              class="bg-purple-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-purple-700">
+              <i class="bi bi-download"></i> Baixar Modelo
+            </button>
+
+            <button
+              id="remove-btn"
+              class="bg-red-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-red-700">
+              <i class="bi bi-trash"></i> Remover Planilha
+            </button>
+
+            <button
+              id="toggle-upload-btn"
+              class="bg-gray-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-gray-700">
+              <i class="bi bi-eye-slash"></i> Alternar Área de Upload
+            </button>
+          </div>
+        </div>
+
+        <!-- Conteúdo da aba Análise -->
+        <div id="analise-content" class="mt-6 hidden">
+          <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
+            <h2 class="font-semibold text-xl">Análise de Dados</h2>
+            <button
+              class="bg-yellow-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-yellow-700">
+              <i class="bi bi-pie-chart"></i> Gerar Gráficos
+            </button>
+            <button
+              class="bg-indigo-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-indigo-700">
+              <i class="bi bi-robot"></i> Análise IA
+            </button>
+          </div>
+        </div>
+
+        <!-- Conteúdo da aba Configurações -->
+        <div id="config-content" class="mt-6 hidden">
+          <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
+            <h2 class="font-semibold text-xl">Configurações</h2>
+
+            <div class="mt-4">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="theme-toggle"
+                  class="mr-2 rounded text-red-600" />
+                <span>Modo Escuro</span>
+              </label>
+            </div>
+
+            <button
+              id="save-settings-btn"
+              class="bg-red-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-red-700">
+              <i class="bi bi-save"></i> Salvar Configurações
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
