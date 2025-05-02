@@ -32,7 +32,7 @@ def main():
         q1 = df['desistentes'].quantile(0.25)
         q3 = df['desistentes'].quantile(0.75)
         iqr = q3 - q1
-        df = df[~((df['desistentes'] < (q1 - 1.5*iqr)) | (df['desistentes'] > (q3 + 1.5*iqr))]
+        df = df[~((df['desistentes'] < (q1 - 1.5*iqr)) | (df['desistentes'] > (q3 + 1.5*iqr)))]
         
         # Prepare data
         X = df[['ano_norm', 'semestre']]
