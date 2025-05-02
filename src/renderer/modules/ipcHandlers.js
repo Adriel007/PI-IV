@@ -41,7 +41,32 @@ const setupIpcHandlers = () => {
 
           // Mostra informações do modelo se disponível
           if (predictionData.modelInfo) {
-            showModelInfo(predictionData.modelInfo);
+            const modelInfo = predictionData.modelInfo;
+            if (!modelInfo) return;
+
+            // Cria um texto formatado com as informações do modelo
+            let infoText = `<strong>Modelo utilizado:</strong> ${
+              modelInfo.bestModel || "N/A"
+            }`;
+
+            if (modelInfo.metrics) {
+              infoText += `<br><br><strong>Métricas:</strong>`;
+              for (const [modelName, metrics] of Object.entries(
+                modelInfo.metrics
+              )) {
+                infoText += `<br>• ${modelName}: RMSE = ${
+                  metrics.cv_rmse?.toFixed(2) || "N/A"
+                }`;
+              }
+            }
+
+            // Mostra as informações usando SweetAlert2
+            Swal.fire({
+              title: "Informações do Modelo",
+              html: infoText,
+              icon: "info",
+              confirmButtonText: "OK",
+            });
           }
         } catch (error) {
           Swal.close();
