@@ -2,6 +2,7 @@ import sys
 import pandas as pd
 import json
 import numpy as np
+from io import StringIO 
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures, StandardScaler
