@@ -1,5 +1,5 @@
 const setupIpcHandlers = () => {
-  // Botão "Análise IA" - pede cálculo real via Python
+  // Botão "Análise IA"
   document
     .querySelector("#analise-content button.bg-yellow-600")
     .addEventListener("click", async () => {
@@ -24,64 +24,30 @@ const setupIpcHandlers = () => {
           return;
         }
 
-        const processedData = processData(data);
-
         try {
           Swal.fire({
             title: "Processando...",
-            text: "Gerando previsões",
+            text: "Gerando previsões com IA...",
             allowOutsideClick: false,
             didOpen: () => Swal.showLoading(),
           });
 
-          const predictionData = await predictFuture(processedData);
-          showModelInfo(predictionData.modelInfo);
+          // Chamada real ao backend (via Python)
+          const result = await window.electronAPI.analisarDados(csvContent);
+          const parsed = JSON.parse(result);
+
+          plotChartIA(parsed);
+
+          showModelInfo({
+            bestModel: parsed.best_model,
+            metrics: parsed.model_metrics,
+          });
 
           Swal.close();
-
-          // Mostra informações do modelo se disponível
         } catch (error) {
           Swal.close();
           showAlert(`Erro ao gerar previsões: ${error.message}`, "error");
         }
-      };
-
-      reader.onerror = () => {
-        showAlert("Erro ao ler o arquivo.", "error");
-      };
-
-      reader.readAsText(file);
-    });
-
-  // Botão "Gerar Gráficos" - histórico + previsão simples no front
-  document
-    .querySelector("#analise-content button.bg-yellow-600")
-    .addEventListener("click", () => {
-      const fileInput = document.getElementById("file-input");
-      const file = fileInput.files[0];
-
-      if (!file) {
-        showAlert("Nenhum arquivo selecionado.", "error");
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const csvContent = event.target.result;
-        const data = parseCSV(csvContent);
-
-        if (!validateData(data)) {
-          showAlert(
-            "Dados inválidos. Verifique as colunas obrigatórias.",
-            "error"
-          );
-          return;
-        }
-
-        const processedData = processData(data);
-        const predictionData = predictFuture(processedData);
-
-        plotChartIA(predictionData);
       };
 
       reader.onerror = () => {
