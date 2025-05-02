@@ -35,12 +35,11 @@ const setupIpcHandlers = () => {
           });
 
           const predictionData = await predictFuture(processedData);
-          plotChart(predictionData);
+          showModelInfo(predictionData.modelInfo);
 
           Swal.close();
 
           // Mostra informações do modelo se disponível
-          showModelInfo(predictionData.modelInfo);
         } catch (error) {
           Swal.close();
           showAlert(`Erro ao gerar previsões: ${error.message}`, "error");
