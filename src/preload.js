@@ -7,4 +7,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   removeSpreadsheet: () => ipcRenderer.invoke("remove-spreadsheet"),
   downloadTemplate: () => ipcRenderer.invoke("download-template"),
   saveSettings: () => ipcRenderer.invoke("save-settings"),
+  analisarDados: (csvContent) =>
+    ipcRenderer.invoke("analisar-dados", csvContent),
 });

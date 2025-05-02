@@ -62,7 +62,42 @@ const processData = (data) => {
   return { labels, desistencias };
 };
 
-const predictFuture = ({ labels, desistencias }) => {
+// dataProcessing.js
+const predictFuture = async ({ labels, desistencias }) => {
+  // Prepara os dados no formato esperado pelo Python (CSV)
+  const csvContent = ["ano,semestre,desistentes"]; // Cabeçalho
+
+  // Converte os dados históricos para o formato CSV
+  labels.forEach((label, index) => {
+    const [ano, semestre] = label.split(".");
+    csvContent.push(`${ano},${semestre},${desistencias[index]}`);
+  });
+
+  const csvString = csvContent.join("\n");
+
+  try {
+    // Chama a análise via Python
+    const result = await window.electronAPI.analisarDados(csvString);
+
+    // Processa os resultados
+    return {
+      labels: [...labels, ...result.future_labels],
+      desistencias: [...desistencias, ...result.future_predictions],
+      predictedStartIndex: labels.length,
+      modelInfo: {
+        bestModel: result.best_model,
+        metrics: result.model_metrics,
+      },
+    };
+  } catch (error) {
+    console.error("Erro na análise Python:", error);
+    // Fallback para o método simples se o Python falhar
+    return simplePredictFuture({ labels, desistencias });
+  }
+};
+
+// Método simples de fallback
+const simplePredictFuture = ({ labels, desistencias }) => {
   const futureLabels = [];
   const futureValues = [];
 
@@ -96,5 +131,9 @@ const predictFuture = ({ labels, desistencias }) => {
     labels: [...labels, ...futureLabels],
     desistencias: [...desistencias, ...futureValues],
     predictedStartIndex: labels.length,
+    modelInfo: {
+      bestModel: "Simple Linear Projection",
+      metrics: {},
+    },
   };
 };
