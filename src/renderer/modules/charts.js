@@ -1,5 +1,5 @@
 // Gráfico - histórico e previsão simples
-const plotChart = ({ labels, desistencias, predictedStartIndex }) => {
+const plotChart = ({ labels, desistencias }) => {
   const ctxId = "dropoutChart";
   const oldCanvas = document.getElementById(ctxId);
   if (oldCanvas) oldCanvas.remove();
@@ -11,7 +11,6 @@ const plotChart = ({ labels, desistencias, predictedStartIndex }) => {
   const ctx = canvas.getContext("2d");
 
   const historicalData = desistencias.slice(0, predictedStartIndex);
-  const predictedData = desistencias.slice(predictedStartIndex);
 
   new Chart(ctx, {
     type: "line",
@@ -28,17 +27,6 @@ const plotChart = ({ labels, desistencias, predictedStartIndex }) => {
           pointBackgroundColor: "#2563eb",
           pointRadius: 4,
         },
-        {
-          label: "Previsão Simples",
-          data: [...Array(historicalData.length).fill(null), ...predictedData],
-          borderColor: "#f97316",
-          borderDash: [5, 5],
-          backgroundColor: "rgba(249,115,22,0.2)",
-          tension: 0.3,
-          fill: false,
-          pointBackgroundColor: "#f97316",
-          pointRadius: 4,
-        },
       ],
     },
     options: {
@@ -46,7 +34,7 @@ const plotChart = ({ labels, desistencias, predictedStartIndex }) => {
       plugins: {
         title: {
           display: true,
-          text: "Histórico vs Previsão Simples",
+          text: "Histórico",
           font: {
             size: 20,
           },
