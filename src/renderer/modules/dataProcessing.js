@@ -12,7 +12,17 @@ const parseCSV = (content) => {
 };
 
 const validateData = (data) => {
-  const requiredColumns = ["curso", "semestre", "ano"];
+  const requiredColumns = [
+    "curso",
+    "semestre",
+    "ano",
+    "1° C",
+    "2° C",
+    "3° C",
+    "4° C",
+    "5° C",
+    "6° C",
+  ];
   if (!data.length) return false;
   const sample = data[0];
   return requiredColumns.every((col) => col in sample);
@@ -24,7 +34,12 @@ const processData = (data) => {
   data.forEach((row) => {
     const ano = parseInt(row["ano"]);
     const semestre = parseInt(row["semestre"]);
-    const desistentes = parseInt(row["desistentes"]) || 0;
+
+    // Calcular o total de desistências somando todas as colunas de 1° C a 6° C
+    const desistentes = ["1° C", "2° C", "3° C", "4° C", "5° C", "6° C"].reduce(
+      (total, col) => total + (parseFloat(row[col]) || 0),
+      0
+    );
 
     if (!resumo[ano]) {
       resumo[ano] = { 1: 0, 2: 0 };
@@ -36,7 +51,7 @@ const processData = (data) => {
   const desistencias = [];
 
   Object.keys(resumo)
-    .sort()
+    .sort((a, b) => parseInt(a) - parseInt(b))
     .forEach((ano) => {
       [1, 2].forEach((semestre) => {
         labels.push(`${ano}.${semestre}`);
