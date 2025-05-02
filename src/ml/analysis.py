@@ -47,11 +47,10 @@ def main():
             
         # Correlation Analysis
         corr_matrix = df.corr()
-        plt.figure(figsize=(10,8))
-        sns.heatmap(corr_matrix, annot=True)
-        plt.title('Correlation Matrix')
-        plt.savefig('correlation_matrix.png')
-        plt.close()
+        correlation_data = {
+            'labels': corr_matrix.index.tolist(),
+            'data': corr_matrix.values.tolist()
+        }   
         
         # Model Comparison
         models = {
@@ -120,7 +119,11 @@ def main():
             "model_metrics": results,
             "future_labels": future_periods_str,
             "future_predictions": future_preds,
-            "visualizations": ["correlation_matrix.png", "predictions_plot.png"]
+            "correlation_data": correlation_data,
+            "historical_data": {
+                "labels": df['periodo'].tolist(),
+                "values": df['desistentes'].tolist()
+            }
         }
         
         print(json.dumps(output))

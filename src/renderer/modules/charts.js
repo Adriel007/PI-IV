@@ -134,4 +134,128 @@ const plotChartIA = ({ future_labels, future_predictions }) => {
       },
     },
   });
+
+  if (result.correlation_data) {
+    plotCorrelationMatrix(result.correlation_data);
+  }
+
+  plotChart({
+    labels: [...result.historical_data.labels, ...result.future_labels],
+    desistencias: [
+      ...result.historical_data.values,
+      ...result.future_predictions,
+    ],
+    predictedStartIndex: result.historical_data.labels.length,
+  });
+};
+
+const clearChart = () => {
+  const oldCanvas = document.getElementById("dropoutChart");
+  if (oldCanvas) oldCanvas.remove();
+};
+
+const showModelInfo = (modelInfo) => {
+  if (modelInfo) {
+    if (!modelInfo) return;
+
+    // Cria um texto formatado com as informações do modelo
+    let infoText = `<strong>Modelo utilizado:</strong> ${
+      modelInfo.bestModel || "N/A"
+    }`;
+
+    if (modelInfo.metrics) {
+      infoText += `<br><br><strong>Métricas:</strong>`;
+      for (const [modelName, metrics] of Object.entries(modelInfo.metrics)) {
+        infoText += `<br>• ${modelName}: RMSE = ${
+          metrics.cv_rmse?.toFixed(2) || "N/A"
+        }`;
+      }
+    }
+
+    // Mostra as informações usando SweetAlert2
+    Swal.fire({
+      title: "Informações do Modelo",
+      html: infoText,
+      icon: "info",
+      confirmButtonText: "OK",
+    });
+  } else {
+    // Se nenhuma informação do modelo for disponível, mostra uma mensagem de aviso
+    Swal.fire({
+      title: "Informações do Modelo",
+      text: "Nenhuma informação do modelo disponível.",
+      icon: "info",
+      confirmButtonText: "OK",
+    });
+  }
+};
+
+const plotCorrelationMatrix = ({ labels, data }) => {
+  const ctxId = "correlationChart";
+  const oldCanvas = document.getElementById(ctxId);
+  if (oldCanvas) oldCanvas.remove();
+
+  const canvas = document.createElement("canvas");
+  canvas.id = ctxId;
+  document.getElementById("analise-content").appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  new Chart(ctx, {
+    type: "matrix", // Requer o plugin chartjs-chart-matrix
+    data: {
+      datasets: [
+        {
+          label: "Correlação",
+          data: data
+            .map((row, i) =>
+              row.map((value, j) => ({
+                x: j,
+                y: i,
+                v: value,
+              }))
+            )
+            .flat(),
+          backgroundColor: (ctx) => {
+            const value = ctx.raw.v;
+            const alpha = Math.abs(value); // Use alpha to show intensity
+            return `rgba(0, 0, 255, ${alpha})`;
+          },
+          width: ({ chart }) =>
+            (chart.chartArea || {}).width / labels.length - 1,
+          height: ({ chart }) =>
+            (chart.chartArea || {}).height / labels.length - 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Matriz de Correlação",
+          font: { size: 20 },
+        },
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `Valor: ${ctx.raw.v.toFixed(2)}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: "category",
+          labels: labels,
+          offset: true,
+          grid: { display: false },
+        },
+        y: {
+          type: "category",
+          labels: labels,
+          offset: true,
+          grid: { display: false },
+        },
+      },
+    },
+  });
 };
