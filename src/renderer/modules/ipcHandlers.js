@@ -39,10 +39,7 @@ const setupIpcHandlers = () => {
           plotChartIA(predictionData);
 
           showModelInfo(predictionData.modelInfo);
-
-          Swal.close();
         } catch (error) {
-          Swal.close();
           showAlert(`Erro ao gerar previsões: ${error.message}`, "error");
         }
       };
