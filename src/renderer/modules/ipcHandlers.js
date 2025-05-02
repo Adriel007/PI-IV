@@ -24,8 +24,6 @@ const setupIpcHandlers = () => {
           return;
         }
 
-        const processedData = processData(data);
-
         try {
           Swal.fire({
             title: "Processando...",
@@ -34,13 +32,10 @@ const setupIpcHandlers = () => {
             didOpen: () => Swal.showLoading(),
           });
 
-          const predictionData = await predictFuture(processedData);
-          plotChart(predictionData);
-
-          Swal.close();
-
           // Mostra informações do modelo se disponível
           showModelInfo(predictionData.modelInfo);
+
+          Swal.close();
         } catch (error) {
           Swal.close();
           showAlert(`Erro ao gerar previsões: ${error.message}`, "error");
