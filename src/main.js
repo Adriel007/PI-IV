@@ -22,7 +22,7 @@ app.whenReady().then(createWindow);
 // 📡 IPC para fazer análise IA com Python
 ipcMain.handle("analisar-dados", async (event, csvContent) => {
   return new Promise((resolve, reject) => {
-    const pythonProcess = spawn("python3", ["src/ml/analisar.py"], {
+    const pythonProcess = spawn("python3", ["src/ml/analysis.py"], {
       stdio: ["pipe", "pipe", "pipe"],
     });
 
