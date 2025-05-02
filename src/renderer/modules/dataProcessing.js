@@ -12,7 +12,7 @@ const parseCSV = (content) => {
 };
 
 const validateData = (data) => {
-  const requiredColumns = ["curso", "semestre", "ano", "desistentes"];
+  const requiredColumns = ["curso", "semestre", "ano"];
   if (!data.length) return false;
   const sample = data[0];
   return requiredColumns.every((col) => col in sample);
