@@ -81,9 +81,7 @@ const predictFuture = async ({ labels, desistencias }) => {
 
     // Processa os resultados
     return {
-      labels: [...labels, ...result.future_labels],
-      desistencias: [...desistencias, ...result.future_predictions],
-      predictedStartIndex: labels.length,
+      ...result,
       modelInfo: {
         bestModel: result.best_model,
         metrics: result.model_metrics,
@@ -91,49 +89,5 @@ const predictFuture = async ({ labels, desistencias }) => {
     };
   } catch (error) {
     console.error("Erro na análise Python:", error);
-    // Fallback para o método simples se o Python falhar
-    return simplePredictFuture({ labels, desistencias });
   }
-};
-
-// Método simples de fallback
-const simplePredictFuture = ({ labels, desistencias }) => {
-  const futureLabels = [];
-  const futureValues = [];
-
-  if (desistencias.length < 2) {
-    console.warn("Poucos dados para prever tendências.");
-    return { labels, desistencias, predictedStartIndex: labels.length };
-  }
-
-  const n = desistencias.length;
-  const last2 = desistencias.slice(-2);
-  const growthRate = last2[1] - last2[0];
-
-  let [lastYear, lastSemester] = labels[labels.length - 1]
-    .split(".")
-    .map(Number);
-
-  for (let i = 0; i < 6; i++) {
-    if (lastSemester === 1) {
-      lastSemester = 2;
-    } else {
-      lastSemester = 1;
-      lastYear += 1;
-    }
-    futureLabels.push(`${lastYear}.${lastSemester}`);
-    const predicted =
-      desistencias[desistencias.length - 1] + growthRate * (i + 1);
-    futureValues.push(Math.max(0, Math.round(predicted)));
-  }
-
-  return {
-    labels: [...labels, ...futureLabels],
-    desistencias: [...desistencias, ...futureValues],
-    predictedStartIndex: labels.length,
-    modelInfo: {
-      bestModel: "Simple Linear Projection",
-      metrics: {},
-    },
-  };
 };

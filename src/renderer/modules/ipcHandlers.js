@@ -24,6 +24,8 @@ const setupIpcHandlers = () => {
           return;
         }
 
+        const processedData = processData(data); // ← processa antes!
+
         try {
           Swal.fire({
             title: "Processando...",
@@ -32,16 +34,11 @@ const setupIpcHandlers = () => {
             didOpen: () => Swal.showLoading(),
           });
 
-          // Chamada real ao backend (via Python)
-          const result = await window.electronAPI.analisarDados(csvContent);
-          const parsed = JSON.parse(result);
+          const predictionData = await predictFuture(processedData);
 
-          plotChartIA(parsed);
+          plotChartIA(predictionData);
 
-          showModelInfo({
-            bestModel: parsed.best_model,
-            metrics: parsed.model_metrics,
-          });
+          showModelInfo(predictionData.modelInfo);
 
           Swal.close();
         } catch (error) {
