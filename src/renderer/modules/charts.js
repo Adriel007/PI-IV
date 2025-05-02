@@ -117,39 +117,29 @@ const clearChart = () => {
 };
 
 const showModelInfo = (modelInfo) => {
-  if (modelInfo) {
-    if (!modelInfo) return;
-
-    // Cria um texto formatado com as informações do modelo
-    let infoText = `<strong>Modelo utilizado:</strong> ${
-      modelInfo.bestModel || "N/A"
-    }`;
-
-    if (modelInfo.metrics) {
-      infoText += `<br><br><strong>Métricas:</strong>`;
-      for (const [modelName, metrics] of Object.entries(modelInfo.metrics)) {
-        infoText += `<br>• ${modelName}: RMSE = ${
-          metrics.cv_rmse?.toFixed(2) || "N/A"
-        }`;
-      }
-    }
-
-    // Mostra as informações usando SweetAlert2
+  if (!modelInfo || !modelInfo.bestModel || !modelInfo.metrics) {
     Swal.fire({
       title: "Informações do Modelo",
-      html: infoText,
+      text: "Nenhuma informação de modelo disponível.",
       icon: "info",
       confirmButtonText: "OK",
     });
-
-    plotChartIA(modelInfo);
-  } else {
-    // Se nenhuma informação do modelo for disponível, mostra uma mensagem de aviso
-    Swal.fire({
-      title: "Informações do Modelo",
-      text: "Nenhuma informação do modelo disponível.",
-      icon: "info",
-      confirmButtonText: "OK",
-    });
+    return;
   }
+
+  let infoText = `<strong>Modelo utilizado:</strong> ${modelInfo.bestModel}`;
+
+  infoText += `<br><br><strong>Métricas:</strong>`;
+  for (const [modelName, metrics] of Object.entries(modelInfo.metrics)) {
+    infoText += `<br>• ${modelName}: RMSE = ${
+      metrics.cv_rmse?.toFixed(2) || "N/A"
+    }`;
+  }
+
+  Swal.fire({
+    title: "Informações do Modelo",
+    html: infoText,
+    icon: "info",
+    confirmButtonText: "OK",
+  });
 };
