@@ -1,7 +1,7 @@
 # Sistema de Análise de Evasão Escolar
 Sistema desenvolvido para análise e previsão de evasão escolar em cursos superiores, utilizando técnicas de Machine Learning e visualização de dados.
 ## 📋 Descrição do Projeto
-Este projeto consiste em uma aplicação desktop desenvolvida em Python que permite:
+Este projeto consiste em uma aplicação desktop desenvolvida em ElectronJS que permite:
 - Carregar dados de evasão escolar de diferentes fontes (CSV, Excel, Google Sheets)
 - Visualizar tendências e padrões através de gráficos interativos
 - Realizar previsões de evasão utilizando diferentes modelos de Machine Learning
@@ -22,45 +22,44 @@ Este projeto consiste em uma aplicação desktop desenvolvida em Python que perm
   - Avaliação de performance dos modelos
   - Visualização das previsões
 ## 🛠️ Tecnologias Utilizadas
-- **Python 3.x**
-- **PyQt5** - Interface gráfica
+- **Electron** - Framework desktop
+- **Python 3.x** - Backend e análise de dados
 - **Pandas** - Manipulação de dados
 - **Scikit-learn** - Modelos de Machine Learning
-- **Matplotlib** - Visualização de dados
-- **Google Sheets API** - Integração com planilhas online
+- **Chart.js** - Visualização de dados
+- **TailwindCSS** - Estilização
 ## 📁 Estrutura do Projeto
 ```
 PI-IV/
-├── app/
-│   ├── data/
-│   │   ├── data_loader.py    # Carregamento de dados
-│   │   └── data_processor.py # Processamento de dados
-│   ├── prediction/
-│   │   └── prediction.py     # Modelos preditivos
-│   ├── ui/
-│   │   ├── charts.py        # Componentes de visualização
-│   │   └── main_window.py   # Interface principal
-│   └── main.py              # Ponto de entrada da aplicação
-└── README.md
+├── src/
+│   ├── main.js           # Processo principal Electron
+│   ├── preload.js        # Bridge IPC
+│   ├── ml/
+│   │   └── analysis.py   # Análise preditiva
+│   └── renderer/         # Interface do usuário
+├── transformacao/        # Scripts de ETL
+└── README.md             # Documentação
 ```
 
 ## ⚙️ Como Executar
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/Adriel007/PI-IV/
+git clone --branch electron --single-branch https://github.com/Adriel007/PI-IV/
+cd ./pi-iv
 ```
 
 
 2. Instale as dependências:
 ```bash
+npm install
 pip install -r requirements.txt
 ```
 
 
 3. Execute a aplicação:
 ```bash
-python app/main.py
+npm start
 ```
 
 
