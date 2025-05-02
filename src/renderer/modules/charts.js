@@ -75,31 +75,30 @@ const plotChart = ({ labels, desistencias, predictedStartIndex }) => {
 };
 
 // Gráfico - histórico + previsão IA (vindos do Python)
-const plotChartIA = ({ future_labels, future_predictions }) => {
-  const ctxId = "dropoutChart";
-  const oldCanvas = document.getElementById(ctxId);
-  if (oldCanvas) oldCanvas.remove();
+const plotChartIA = (data) => {
+  // Gráfico histórico + previsão
+  const ctx1 = document.getElementById("chart-historical").getContext("2d");
 
-  const canvas = document.createElement("canvas");
-  canvas.id = ctxId;
-  document.getElementById("analise-content").appendChild(canvas);
-
-  const ctx = canvas.getContext("2d");
-
-  new Chart(ctx, {
+  new Chart(ctx1, {
     type: "line",
     data: {
-      labels: future_labels,
+      labels: [...data.historical_data.labels, ...data.future_labels],
       datasets: [
         {
-          label: "Previsão IA",
-          data: future_predictions,
-          borderColor: "#10b981",
-          backgroundColor: "rgba(16,185,129,0.2)",
-          tension: 0.4,
-          fill: true,
-          pointBackgroundColor: "#059669",
-          pointRadius: 5,
+          label: "Histórico",
+          data: data.historical_data.values,
+          borderColor: "blue",
+          tension: 0.3,
+        },
+        {
+          label: "Previsão",
+          data: [
+            ...Array(data.historical_data.labels.length).fill(null),
+            ...data.future_predictions,
+          ],
+          borderColor: "red",
+          borderDash: [5, 5],
+          tension: 0.3,
         },
       ],
     },
@@ -108,44 +107,83 @@ const plotChartIA = ({ future_labels, future_predictions }) => {
       plugins: {
         title: {
           display: true,
-          text: "Previsão de Desistências via IA",
-          font: {
-            size: 20,
-          },
-        },
-        legend: {
-          display: true,
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: "Número de Desistentes",
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: "Ano.Semestre",
-          },
+          text: "Desistências: Histórico e Previsão",
         },
       },
     },
   });
 
-  if (result.correlation_data) {
-    plotCorrelationMatrix(result.correlation_data);
+  // Heatmap de correlação
+  const ctx2 = document.getElementById("chart-correlation").getContext("2d");
+  const labels = data.correlation_data.labels;
+  const matrix = data.correlation_data.data;
+
+  const heatmapData = [];
+  for (let y = 0; y < labels.length; y++) {
+    for (let x = 0; x < labels.length; x++) {
+      heatmapData.push({
+        x: labels[x],
+        y: labels[y],
+        v: matrix[y][x],
+      });
+    }
   }
 
-  plotChart({
-    labels: [...result.historical_data.labels, ...result.future_labels],
-    desistencias: [
-      ...result.historical_data.values,
-      ...result.future_predictions,
-    ],
-    predictedStartIndex: result.historical_data.labels.length,
+  new Chart(ctx2, {
+    type: "matrix",
+    data: {
+      datasets: [
+        {
+          label: "Correlação",
+          data: heatmapData,
+          backgroundColor(ctx) {
+            const value = ctx.dataset.data[ctx.dataIndex].v;
+            const alpha = Math.abs(value);
+            if (value > 0)
+              return `rgba(0, 0, 255, ${alpha})`; // Azul para correlação positiva
+            else return `rgba(255, 0, 0, ${alpha})`; // Vermelho para negativa
+          },
+          borderColor: "black",
+          borderWidth: 0.5,
+          width: ({ chart }) =>
+            (chart.chartArea || {}).width / labels.length - 1,
+          height: ({ chart }) =>
+            (chart.chartArea || {}).height / labels.length - 1,
+        },
+      ],
+      labels: labels,
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: "Matriz de Correlação (Heatmap)",
+        },
+        tooltip: {
+          callbacks: {
+            title: (items) => {
+              const item = items[0];
+              return `${item.raw.y} vs ${item.raw.x}`;
+            },
+            label: (item) => `Correlação: ${item.raw.v.toFixed(2)}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: "category",
+          labels: labels,
+          offset: true,
+          grid: { display: false },
+        },
+        y: {
+          type: "category",
+          labels: labels,
+          offset: true,
+          grid: { display: false },
+        },
+      },
+    },
   });
 };
 
@@ -179,6 +217,8 @@ const showModelInfo = (modelInfo) => {
       icon: "info",
       confirmButtonText: "OK",
     });
+
+    plotChartIA(modelInfo);
   } else {
     // Se nenhuma informação do modelo for disponível, mostra uma mensagem de aviso
     Swal.fire({
@@ -188,74 +228,4 @@ const showModelInfo = (modelInfo) => {
       confirmButtonText: "OK",
     });
   }
-};
-
-const plotCorrelationMatrix = ({ labels, data }) => {
-  const ctxId = "correlationChart";
-  const oldCanvas = document.getElementById(ctxId);
-  if (oldCanvas) oldCanvas.remove();
-
-  const canvas = document.createElement("canvas");
-  canvas.id = ctxId;
-  document.getElementById("analise-content").appendChild(canvas);
-  const ctx = canvas.getContext("2d");
-
-  new Chart(ctx, {
-    type: "matrix", // Requer o plugin chartjs-chart-matrix
-    data: {
-      datasets: [
-        {
-          label: "Correlação",
-          data: data
-            .map((row, i) =>
-              row.map((value, j) => ({
-                x: j,
-                y: i,
-                v: value,
-              }))
-            )
-            .flat(),
-          backgroundColor: (ctx) => {
-            const value = ctx.raw.v;
-            const alpha = Math.abs(value); // Use alpha to show intensity
-            return `rgba(0, 0, 255, ${alpha})`;
-          },
-          width: ({ chart }) =>
-            (chart.chartArea || {}).width / labels.length - 1,
-          height: ({ chart }) =>
-            (chart.chartArea || {}).height / labels.length - 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: "Matriz de Correlação",
-          font: { size: 20 },
-        },
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => `Valor: ${ctx.raw.v.toFixed(2)}`,
-          },
-        },
-      },
-      scales: {
-        x: {
-          type: "category",
-          labels: labels,
-          offset: true,
-          grid: { display: false },
-        },
-        y: {
-          type: "category",
-          labels: labels,
-          offset: true,
-          grid: { display: false },
-        },
-      },
-    },
-  });
 };
