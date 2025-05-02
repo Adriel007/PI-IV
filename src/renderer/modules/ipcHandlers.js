@@ -80,7 +80,8 @@ const setupIpcHandlers = () => {
 
         const processedData = processData(data);
         const predictionData = predictFuture(processedData);
-        plotChart(predictionData);
+
+        plotChartIA(predictionData);
       };
 
       reader.onerror = () => {
