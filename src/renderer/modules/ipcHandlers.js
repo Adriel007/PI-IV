@@ -24,6 +24,8 @@ const setupIpcHandlers = () => {
           return;
         }
 
+        descritiveAnalysis(data);
+
         const processedData = processData(data); // ← processa antes!
 
         try {
