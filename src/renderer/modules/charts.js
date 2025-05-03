@@ -35,6 +35,119 @@ const chartColors = [
   "rgb(127, 255, 212)", // azul turquesa claro
 ];
 
+const plotChartSingle = (rawData) => {
+  const cursos = [...new Set(rawData.map((row) => row.curso))];
+  const periodos = [
+    ...new Set(rawData.map((row) => `${row.ano}.${row.semestre}`)),
+  ].sort();
+
+  const datasets = cursos.map((curso, idx) => {
+    const cor = chartColors[idx % chartColors.length];
+
+    // Preenche os dados para cada período
+    const data = periodos.map((periodo) => {
+      const [ano, semestre] = periodo.split(".");
+      const match = rawData.find(
+        (r) => r.curso === curso && r.ano === ano && r.semestre === semestre
+      );
+
+      if (!match) return 0;
+
+      return ["1° C", "2° C", "3° C", "4° C", "5° C", "6° C"].reduce(
+        (sum, col) => sum + (parseFloat(match[col]) || 0),
+        0
+      );
+    });
+
+    return {
+      label: curso,
+      data,
+      backgroundColor: cor,
+      borderColor: cor,
+      fill: false,
+      tension: 0.3,
+    };
+  });
+
+  // Gráfico de Linha
+  const ctx_line = document
+    .getElementById("chart-line-single")
+    .getContext("2d");
+  new Chart(ctx_line, {
+    type: "line",
+    data: {
+      labels: periodos,
+      datasets,
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Desistentes por semestre (por curso)",
+        },
+        legend: {
+          position: "right",
+        },
+      },
+    },
+  });
+
+  // Gráfico de Barras (stacked ou não)
+  const ctx_bar = document.getElementById("chart-bar-single").getContext("2d");
+  new Chart(ctx_bar, {
+    type: "bar",
+    data: {
+      labels: periodos,
+      datasets,
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Desistentes por semestre (por curso)",
+        },
+        legend: {
+          position: "right",
+        },
+      },
+    },
+  });
+
+  // Gráfico de Pizza (total de desistências por curso)
+  const desistenciasTotais = datasets.map((ds) =>
+    ds.data.reduce((sum, val) => sum + val, 0)
+  );
+  const ctx_pie = document.getElementById("chart-pie-single").getContext("2d");
+  new Chart(ctx_pie, {
+    type: "pie",
+    data: {
+      labels: cursos,
+      datasets: [
+        {
+          data: desistenciasTotais,
+          backgroundColor: cursos.map(
+            (_, i) => chartColors[i % chartColors.length]
+          ),
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: "Total de desistentes por curso",
+        },
+        legend: {
+          position: "right",
+        },
+      },
+    },
+  });
+};
+
 const plotChart = (data) => {
   const ctx_pie = document.getElementById("chart-pie").getContext("2d");
   new Chart(ctx_pie, {

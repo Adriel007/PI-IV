@@ -34,6 +34,7 @@ const setupIpcHandlers = () => {
             didOpen: () => Swal.showLoading(),
           });
 
+          plotChartSingle(data);
           plotChart(processedData);
 
           const predictionData = await predictFuture(processedData);
