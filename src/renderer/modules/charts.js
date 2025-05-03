@@ -4,10 +4,10 @@ const plotChart = (data) => {
   new Chart(ctx_pie, {
     type: "pie",
     data: {
-      labels: data.pie_data.labels,
+      labels: data.labels,
       datasets: [
         {
-          data: data.pie_data.values,
+          data: data.values,
           backgroundColor: [
             "rgb(255, 99, 132)",
             "rgb(54, 162, 235)",
@@ -34,11 +34,11 @@ const plotChart = (data) => {
   new Chart(ctx_bar, {
     type: "bar",
     data: {
-      labels: data.bar_data.labels,
+      labels: data.labels,
       datasets: [
         {
           label: "Desistentes",
-          data: data.bar_data.values,
+          data: data.values,
           backgroundColor: "rgb(255, 99, 132)",
         },
       ],
@@ -61,11 +61,11 @@ const plotChart = (data) => {
   new Chart(ctx_line, {
     type: "line",
     data: {
-      labels: data.line_data.labels,
+      labels: data.labels,
       datasets: [
         {
           label: "Desistentes",
-          data: data.line_data.values,
+          data: data.values,
           borderColor: "rgb(255, 99, 132)",
           tension: 0.3,
         },

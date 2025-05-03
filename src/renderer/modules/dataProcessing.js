@@ -62,7 +62,11 @@ const processData = (data) => {
   return { labels, desistencias };
 };
 
-// dataProcessing.js
+const descritiveAnalysis = (data) => {
+  const { labels, desistencias } = processData(data);
+  return plotChart({ labels, desistencias });
+};
+
 const predictFuture = async ({ labels, desistencias }) => {
   // Prepara os dados no formato esperado pelo Python (CSV)
   const csvContent = ["ano,semestre,desistentes"]; // Cabeçalho
