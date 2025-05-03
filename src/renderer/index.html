@@ -123,34 +123,31 @@
             <!-- Abas -->
             <div class="flex border-b">
               <button
-                onclick="openTab('tab1')"
+                id="pie-tab"
                 class="tab-button px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
-                Aba 1
+                Pizza
               </button>
               <button
-                onclick="openTab('tab2')"
+                id="bar-tab"
                 class="tab-button px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
-                Aba 2
+                Barras
               </button>
               <button
-                onclick="openTab('tab3')"
+                id="line-tab"
                 class="tab-button px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
-                Aba 3
+                Linhas
               </button>
             </div>
 
             <!-- Conteúdo das Abas -->
-            <div id="tab1" class="tab-content p-4">
-              <h2 class="text-lg font-semibold mb-2">Conteúdo da Aba 1</h2>
-              <p>Esta é a primeira aba.</p>
+            <div id="pie" class="tab-content p-4">
+              <canvas id="chart-pie" height="200"></canvas>
             </div>
-            <div id="tab2" class="tab-content hidden p-4">
-              <h2 class="text-lg font-semibold mb-2">Conteúdo da Aba 2</h2>
-              <p>Esta é a segunda aba.</p>
+            <div id="bar" class="tab-content hidden p-4">
+              <canvas id="chart-bar" height="200"></canvas>
             </div>
-            <div id="tab3" class="tab-content hidden p-4">
-              <h2 class="text-lg font-semibold mb-2">Conteúdo da Aba 3</h2>
-              <p>Esta é a terceira aba.</p>
+            <div id="line" class="tab-content hidden p-4">
+              <canvas id="chart-line" height="200"></canvas>
             </div>
 
             <div class="mt-6">

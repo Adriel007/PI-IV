@@ -34,3 +34,39 @@ const setupTabs = () => {
     .getElementById("config-tab")
     .addEventListener("click", () => switchTab("config"));
 };
+
+const switchGraphTab = (tabName) => {
+  // Esconder todos os gráficos
+  document.getElementById("chart-pie").classList.add("hidden");
+  document.getElementById("chart-bar").classList.add("hidden");
+  document.getElementById("chart-line").classList.add("hidden");
+
+  // Remover borda inferior de todas as abas
+  document
+    .getElementById("pie-tab")
+    .classList.remove("border-b-2", "border-red-600");
+  document
+    .getElementById("bar-tab")
+    .classList.remove("border-b-2", "border-red-600");
+  document
+    .getElementById("line-tab")
+    .classList.remove("border-b-2", "border-red-600");
+
+  // Mostrar o gráfico selecionado e destacar a aba
+  document.getElementById(`${tabName}`).classList.remove("hidden");
+  document
+    .getElementById(`${tabName}-tab`)
+    .classList.add("border-b-2", "border-red-600");
+};
+
+const setupGraphTabs = () => {
+  document
+    .getElementById("pie-tab")
+    .addEventListener("click", () => switchGraphTab("pie"));
+  document
+    .getElementById("bar-tab")
+    .addEventListener("click", () => switchGraphTab("bar"));
+  document
+    .getElementById("line-tab")
+    .addEventListener("click", () => switchGraphTab("line"));
+};
