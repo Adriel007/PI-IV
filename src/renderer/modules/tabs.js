@@ -39,9 +39,9 @@ const setupTabs = () => {
 
 const switchGraphTab = (tabName) => {
   // Esconder todos os gráficos
-  document.getElementById("chart-pie").classList.add("hidden");
-  document.getElementById("chart-bar").classList.add("hidden");
-  document.getElementById("chart-line").classList.add("hidden");
+  document.getElementById("pie").classList.add("hidden");
+  document.getElementById("bar").classList.add("hidden");
+  document.getElementById("line").classList.add("hidden");
 
   // Remover borda inferior de todas as abas
   document
