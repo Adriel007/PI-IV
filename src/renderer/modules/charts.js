@@ -1,6 +1,5 @@
 // Grafico descritivo (pizza, barras, linhas)
 const plotChart = (data) => {
-  console.log(data);
   const ctx_pie = document.getElementById("chart-pie").getContext("2d");
   new Chart(ctx_pie, {
     type: "pie",
@@ -8,7 +7,7 @@ const plotChart = (data) => {
       labels: data.labels,
       datasets: [
         {
-          data: data.values,
+          data: data.desistencias,
           backgroundColor: [
             "rgb(255, 99, 132)",
             "rgb(54, 162, 235)",
@@ -42,7 +41,7 @@ const plotChart = (data) => {
       datasets: [
         {
           label: "Desistentes",
-          data: data.values,
+          data: data.desistencias,
           backgroundColor: "rgb(255, 99, 132)",
         },
       ],
@@ -69,7 +68,7 @@ const plotChart = (data) => {
       datasets: [
         {
           label: "Desistentes",
-          data: data.values,
+          data: data.desistencias,
           borderColor: "rgb(255, 99, 132)",
           tension: 0.3,
         },
