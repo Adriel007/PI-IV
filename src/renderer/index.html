@@ -107,24 +107,6 @@
           </div>
         </div>
 
-        <div class="mb-4 space-x-4">
-          <label for="filtroCurso">Curso:</label>
-          <select id="filtroCurso" class="border rounded px-2 py-1"></select>
-
-          <label for="filtroAno">Ano:</label>
-          <select id="filtroAno" class="border rounded px-2 py-1"></select>
-
-          <button
-            onchange="atualizarGraficos()"
-            class="bg-blue-500 text-white px-4 py-1 rounded">
-            Filtrar
-          </button>
-        </div>
-
-        <canvas id="chart-cursos" class="mb-4 w-full h-64"></canvas>
-        <canvas id="chart-barras" class="mb-4 w-full h-64"></canvas>
-        <canvas id="chart-tendencia" class="mb-4 w-full h-64"></canvas>
-
         <!-- Conteúdo da aba Análise -->
         <div id="analise-content" class="mt-6 hidden">
           <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
@@ -137,6 +119,40 @@
               class="bg-indigo-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-indigo-700">
               <i class="bi bi-robot"></i> Análise IA
             </button>
+
+            <!-- Abas -->
+            <div class="flex border-b">
+              <button
+                onclick="openTab('tab1')"
+                class="tab-button px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+                Aba 1
+              </button>
+              <button
+                onclick="openTab('tab2')"
+                class="tab-button px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+                Aba 2
+              </button>
+              <button
+                onclick="openTab('tab3')"
+                class="tab-button px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+                Aba 3
+              </button>
+            </div>
+
+            <!-- Conteúdo das Abas -->
+            <div id="tab1" class="tab-content p-4">
+              <h2 class="text-lg font-semibold mb-2">Conteúdo da Aba 1</h2>
+              <p>Esta é a primeira aba.</p>
+            </div>
+            <div id="tab2" class="tab-content hidden p-4">
+              <h2 class="text-lg font-semibold mb-2">Conteúdo da Aba 2</h2>
+              <p>Esta é a segunda aba.</p>
+            </div>
+            <div id="tab3" class="tab-content hidden p-4">
+              <h2 class="text-lg font-semibold mb-2">Conteúdo da Aba 3</h2>
+              <p>Esta é a terceira aba.</p>
+            </div>
+
             <div class="mt-6">
               <h3 class="text-lg font-semibold mb-2">Histórico e Previsão</h3>
               <canvas id="chart-historical" height="200"></canvas>
