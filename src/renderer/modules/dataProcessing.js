@@ -63,8 +63,8 @@ const processData = (data) => {
 };
 
 const descritiveAnalysis = (data) => {
-  const { labels, desistencias } = processData(data);
-  return plotChart({ labels, desistencias });
+  const { labels, values } = processData(data);
+  return plotChart({ labels, values });
 };
 
 const predictFuture = async ({ labels, desistencias }) => {
