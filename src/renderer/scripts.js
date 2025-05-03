@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const scripts = [
     "alerts",
     "charts",
@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     scriptElement.src = `./modules/${script}.js`;
     document.body.appendChild(scriptElement);
   });
+});
 
-  setTimeout(() => {
-    document.getElementById("loading").classList.add("hidden");
-    document.getElementById("container").classList.remove("hidden");
-  }, 3_000);
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("container").classList.remove("hidden");
 });
