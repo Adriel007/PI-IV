@@ -16,11 +16,12 @@ Este projeto consiste em uma aplicação desktop desenvolvida em ElectronJS que 
   - Análise temporal de desistências
   - Comparativo entre turnos e períodos
   - Dashboard interativo
+  - Heatmap de matriz de confusão
 - **Análise Preditiva**
   - Previsão de taxas de evasão
   - Comparação entre diferentes modelos (Linear, Ridge, Lasso, Random Forest)
-  - Avaliação de performance dos modelos
-  - Visualização das previsões
+  - Métricas de avaliação (RMSE, MAE, MSE)
+  - Escolha do modelo baseada em RMSE com validação cruzada
 ## 🛠️ Tecnologias Utilizadas
 - **Electron** - Framework desktop
 - **Python 3.x** - Backend e análise de dados
