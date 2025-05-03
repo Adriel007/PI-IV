@@ -71,7 +71,7 @@ const plotChart = (data) => {
         {
           label: "Desistentes",
           data: data.desistencias,
-          backgroundColor: [...chartColors],
+          backgroundColor: "rgb(255, 99, 132)",
         },
       ],
     },
@@ -98,7 +98,7 @@ const plotChart = (data) => {
         {
           label: "Desistentes",
           data: data.desistencias,
-          borderColor: [...chartColors],
+          borderColor: "rgb(255, 99, 132)",
           tension: 0.3,
         },
       ],

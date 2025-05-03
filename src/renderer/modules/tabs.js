@@ -71,4 +71,6 @@ const setupGraphTabs = () => {
   document
     .getElementById("line-tab")
     .addEventListener("click", () => switchGraphTab("line"));
+
+  switchGraphTab("pie");
 };
