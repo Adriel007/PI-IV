@@ -64,6 +64,7 @@ const processData = (data) => {
 
 const descritiveAnalysis = (data) => {
   const { labels, values } = processData(data);
+  console.log({ labels, values });
   return plotChart({ labels, values });
 };
 
