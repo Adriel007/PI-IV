@@ -24,8 +24,6 @@ const setupIpcHandlers = () => {
           return;
         }
 
-        descritiveAnalysis(data);
-
         const processedData = processData(data); // ← processa antes!
 
         try {
@@ -36,8 +34,9 @@ const setupIpcHandlers = () => {
             didOpen: () => Swal.showLoading(),
           });
 
-          const predictionData = await predictFuture(processedData);
+          plotChart(processedData);
 
+          const predictionData = await predictFuture(processedData);
           plotChartIA(predictionData);
 
           showModelInfo(predictionData.modelInfo);
