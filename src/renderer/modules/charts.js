@@ -1,3 +1,91 @@
+// Grafico descritivo (pizza, barras, linhas)
+const plotChart = (data) => {
+  const ctx_pie = document.getElementById("chart-pie").getContext("2d");
+  new Chart(ctx_pie, {
+    type: "pie",
+    data: {
+      labels: data.pie_data.labels,
+      datasets: [
+        {
+          data: data.pie_data.values,
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 205, 86)",
+          ],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "right",
+        },
+        title: {
+          display: true,
+          text: "Distribuição dos alunos por semestre",
+        },
+      },
+    },
+  });
+
+  const ctx_bar = document.getElementById("chart-bar").getContext("2d");
+  new Chart(ctx_bar, {
+    type: "bar",
+    data: {
+      labels: data.bar_data.labels,
+      datasets: [
+        {
+          label: "Desistentes",
+          data: data.bar_data.values,
+          backgroundColor: "rgb(255, 99, 132)",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "right",
+        },
+        title: {
+          display: true,
+          text: "Desistentes por semestre",
+        },
+      },
+    },
+  });
+
+  const ctx_line = document.getElementById("chart-line").getContext("2d");
+  new Chart(ctx_line, {
+    type: "line",
+    data: {
+      labels: data.line_data.labels,
+      datasets: [
+        {
+          label: "Desistentes",
+          data: data.line_data.values,
+          borderColor: "rgb(255, 99, 132)",
+          tension: 0.3,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "right",
+        },
+        title: {
+          display: true,
+          text: "Desistentes por semestre",
+        },
+      },
+    },
+  });
+};
+
 // Gráfico - histórico + previsão IA (vindos do Python)
 const plotChartIA = (data) => {
   // Gráfico histórico + previsão
