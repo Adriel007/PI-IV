@@ -107,6 +107,24 @@
           </div>
         </div>
 
+        <div class="mb-4 space-x-4">
+          <label for="filtroCurso">Curso:</label>
+          <select id="filtroCurso" class="border rounded px-2 py-1"></select>
+
+          <label for="filtroAno">Ano:</label>
+          <select id="filtroAno" class="border rounded px-2 py-1"></select>
+
+          <button
+            onchange="atualizarGraficos()"
+            class="bg-blue-500 text-white px-4 py-1 rounded">
+            Filtrar
+          </button>
+        </div>
+
+        <canvas id="chart-cursos" class="mb-4 w-full h-64"></canvas>
+        <canvas id="chart-barras" class="mb-4 w-full h-64"></canvas>
+        <canvas id="chart-tendencia" class="mb-4 w-full h-64"></canvas>
+
         <!-- Conteúdo da aba Análise -->
         <div id="analise-content" class="mt-6 hidden">
           <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
