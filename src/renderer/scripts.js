@@ -18,5 +18,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     document.getElementById("loading").classList.add("hidden");
     document.getElementById("container").classList.remove("hidden");
-  }, 1_000);
+  }, 3_000);
 });
