@@ -1,4 +1,40 @@
 // Grafico descritivo (pizza, barras, linhas)
+const chartColors = [
+  "rgb(255, 99, 132)", // rosa avermelhado
+  "rgb(54, 162, 235)", // azul claro
+  "rgb(255, 205, 86)", // amarelo
+  "rgb(75, 192, 192)", // verde água
+  "rgb(153, 102, 255)", // roxo claro
+  "rgb(255, 159, 64)", // laranja
+  "rgb(201, 203, 207)", // cinza claro
+  "rgb(255, 99, 71)", // tomate
+  "rgb(144, 238, 144)", // verde claro
+  "rgb(255, 182, 193)", // rosa claro
+  "rgb(70, 130, 180)", // azul aço
+  "rgb(32, 178, 170)", // verde-mar escuro
+  "rgb(218, 165, 32)", // dourado
+  "rgb(0, 128, 128)", // teal
+  "rgb(199, 21, 133)", // rosa escuro
+  "rgb(173, 216, 230)", // azul claro
+  "rgb(255, 140, 0)", // laranja escuro
+  "rgb(152, 251, 152)", // verde pálido
+  "rgb(0, 191, 255)", // azul profundo
+  "rgb(219, 112, 147)", // rosa médio
+  "rgb(205, 92, 92)", // vermelho indiano
+  "rgb(186, 85, 211)", // roxo médio
+  "rgb(240, 230, 140)", // cáqui
+  "rgb(60, 179, 113)", // verde médio
+  "rgb(244, 164, 96)", // salmão escuro
+  "rgb(255, 228, 181)", // mocassim
+  "rgb(0, 250, 154)", // verde-mar médio
+  "rgb(147, 112, 219)", // roxo médio claro
+  "rgb(176, 196, 222)", // azul claro acinzentado
+  "rgb(255, 215, 0)", // ouro
+  "rgb(233, 150, 122)", // salmão claro
+  "rgb(100, 149, 237)", // azul acinzentado
+  "rgb(127, 255, 212)", // azul turquesa claro
+];
+
 const plotChart = (data) => {
   const ctx_pie = document.getElementById("chart-pie").getContext("2d");
   new Chart(ctx_pie, {
@@ -8,14 +44,7 @@ const plotChart = (data) => {
       datasets: [
         {
           data: data.desistencias,
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-            "rgb(75, 192, 192)",
-            "rgb(153, 102, 255)",
-            "rgb(255, 159, 64)",
-          ],
+          backgroundColor: [...chartColors],
         },
       ],
     },
@@ -42,7 +71,7 @@ const plotChart = (data) => {
         {
           label: "Desistentes",
           data: data.desistencias,
-          backgroundColor: "rgb(255, 99, 132)",
+          backgroundColor: [...chartColors],
         },
       ],
     },
@@ -69,7 +98,7 @@ const plotChart = (data) => {
         {
           label: "Desistentes",
           data: data.desistencias,
-          borderColor: "rgb(255, 99, 132)",
+          borderColor: [...chartColors],
           tension: 0.3,
         },
       ],
