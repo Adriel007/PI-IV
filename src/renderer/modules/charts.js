@@ -50,7 +50,6 @@ const plotChart = (data) => {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: "right",
