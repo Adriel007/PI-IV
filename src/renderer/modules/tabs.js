@@ -33,6 +33,8 @@ const setupTabs = () => {
   document
     .getElementById("config-tab")
     .addEventListener("click", () => switchTab("config"));
+
+  setupGraphTabs();
 };
 
 const switchGraphTab = (tabName) => {
