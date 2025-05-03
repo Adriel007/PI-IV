@@ -1,5 +1,6 @@
 // Grafico descritivo (pizza, barras, linhas)
 const plotChart = (data) => {
+  console.log(data);
   const ctx_pie = document.getElementById("chart-pie").getContext("2d");
   new Chart(ctx_pie, {
     type: "pie",
