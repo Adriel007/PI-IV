@@ -15,6 +15,8 @@ def configure_driver():
     options.add_argument("--window-size=1920,1080")  # define tamanho da janela virtual
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    # Especifique o caminho do Chrome no Docker
+    options.binary_location = "/usr/bin/google-chrome-stable"
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     return driver
