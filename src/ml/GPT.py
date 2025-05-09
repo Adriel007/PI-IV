@@ -22,10 +22,18 @@ def configure_driver():
     return driver
 
 # Função para navegar até o site e aguardar a presença do campo
-def navigate_to_site(driver, url, timeout=15):
+def navigate_to_site(driver, url):
     driver.get(url)
-    wait = WebDriverWait(driver, timeout)
-    wait.until(EC.presence_of_element_located((By.ID, "prompt-textarea")))
+    wait = WebDriverWait(driver, 30)  # Aumenta o tempo de espera
+
+    try:
+        # Espera até que o ID 'prompt-textarea' esteja presente na página
+        wait.until(EC.presence_of_element_located((By.ID, "prompt-textarea")))
+        print("Elemento encontrado!")
+    except TimeoutException:
+        print("Elemento 'prompt-textarea' não encontrado no tempo limite.")
+        # Adicione mais lógica de recuperação, como verificar outro elemento ou tentar novamente
+
 
 # Função para inserir texto no campo 'contenteditable'
 def enter_text(driver, texto):
