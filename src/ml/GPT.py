@@ -30,7 +30,7 @@ def navigate_to_site(driver, url):
         # Espera até que o ID 'prompt-textarea' esteja presente na página
         wait.until(EC.presence_of_element_located((By.ID, "prompt-textarea")))
         print("Elemento encontrado!")
-    except TimeoutException:
+    except Exception:
         print("Elemento 'prompt-textarea' não encontrado no tempo limite.")
         # Adicione mais lógica de recuperação, como verificar outro elemento ou tentar novamente
 
@@ -87,22 +87,22 @@ def main():
         
         # Insere o texto
         texto = "Olá, isto é um teste!"
-        enter_text(driver, texto)
+        #enter_text(driver, texto)
         
         # Clica no botão de envio
-        click_submit_button(driver)
+        #click_submit_button(driver)
         
         # Espera pela resposta
-        wait_for_response(driver)
+        #wait_for_response(driver)
         
         # Extrai as mensagens
-        prompts, respostas = extract_messages(driver)
+        #prompts, respostas = extract_messages(driver)
         
         # Exibe os resultados
-        display_results(prompts, respostas)
+        #display_results(prompts, respostas)
     
     finally:
-        driver.quit()
+        #driver.quit()
 
 # Executa o script
 if __name__ == "__main__":
