@@ -102,6 +102,7 @@ def main():
         #display_results(prompts, respostas)
     
     finally:
+        pass
         #driver.quit()
 
 # Executa o script
