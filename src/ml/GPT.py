@@ -1,4 +1,4 @@
-import time
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -84,26 +84,25 @@ def main():
     try:
         # Acessa o site e aguarda o carregamento
         navigate_to_site(driver, "https://chatgpt.com")
-        
+        sleep(100)
         # Insere o texto
         texto = "Olá, isto é um teste!"
-        #enter_text(driver, texto)
+        enter_text(driver, texto)
         
         # Clica no botão de envio
-        #click_submit_button(driver)
+        click_submit_button(driver)
         
         # Espera pela resposta
-        #wait_for_response(driver)
+        wait_for_response(driver)
         
         # Extrai as mensagens
-        #prompts, respostas = extract_messages(driver)
+        prompts, respostas = extract_messages(driver)
         
         # Exibe os resultados
-        #display_results(prompts, respostas)
+        display_results(prompts, respostas)
     
     finally:
-        pass
-        #driver.quit()
+        driver.quit()
 
 # Executa o script
 if __name__ == "__main__":
