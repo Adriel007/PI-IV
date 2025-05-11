@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Função para configurar o Chrome em modo headless
 def configure_driver():
     options = Options()
-    options.add_argument("--headless=new")  # usar --headless=new para compatibilidade moderna
+    #options.add_argument("--headless=new")  # usar --headless=new para compatibilidade moderna
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")  # define tamanho da janela virtual
     options.add_argument("--no-sandbox")
