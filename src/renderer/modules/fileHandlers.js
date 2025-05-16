@@ -38,17 +38,6 @@ const setupFileHandlers = () => {
     showAlert("Arquivo removido com sucesso!");
   });
 
-  document
-    .getElementById("download-template-btn")
-    .addEventListener("click", () => {
-      const link = document.createElement("a");
-      link.href = "./template.csv";
-      link.download = "template.csv";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-
   document.getElementById("toggle-upload-btn").addEventListener("click", () => {
     const uploadArea = document.getElementById("upload-area");
     uploadArea.classList.toggle("hidden");
