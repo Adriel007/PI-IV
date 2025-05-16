@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "alerts",
     "charts",
     "dataProcessing",
-    "theme",
     "tabs",
     "fileHandlers",
     "ipcHandlers",

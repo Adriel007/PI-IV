@@ -32,12 +32,6 @@
       <div
         class="flex justify-between items-center bg-red-600 text-white p-4 rounded-t-lg">
         <h1 class="text-2xl font-bold">Gerenciador de Planilhas</h1>
-        <button
-          id="toggle-theme-btn"
-          class="flex items-center space-x-2 text-lg text-white hover:text-gray-200 bg-red-700 hover:bg-red-800 px-4 py-2 rounded-lg">
-          Alternar Tema
-          <i class="bi bi-moon-fill"></i>
-        </button>
       </div>
 
       <!-- Abas -->
@@ -64,7 +58,7 @@
       <div class="flex-grow mt-6 overflow-auto px-4 pb-4">
         <!-- Conteúdo da aba Gerenciamento -->
         <div id="planilhas-content" class="mt-6">
-          <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-200">
+          <div class="bg-gray-100 p-4 rounded-lg">
             <h2 class="font-semibold text-xl">Gerenciamento de Planilhas</h2>
 
             <!-- Área de upload (inicialmente visível) -->
@@ -108,7 +102,7 @@
 
         <!-- Conteúdo da aba Análise -->
         <div id="analise-content" class="mt-6 hidden">
-          <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
+          <div class="bg-gray-100 p-4 rounded-lg">
             <h2 class="font-semibold text-xl">Análise de Dados</h2>
             <button
               class="bg-yellow-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-yellow-700">
@@ -173,18 +167,8 @@
 
         <!-- Conteúdo da aba Configurações -->
         <div id="config-content" class="mt-6 hidden">
-          <div class="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
+          <div class="bg-gray-100 p-4 rounded-lg">
             <h2 class="font-semibold text-xl">Configurações</h2>
-
-            <div class="mt-4">
-              <label class="flex items-center">
-                <input
-                  type="checkbox"
-                  id="theme-toggle"
-                  class="mr-2 rounded text-red-600" />
-                <span>Modo Escuro</span>
-              </label>
-            </div>
 
             <button
               id="save-settings-btn"
