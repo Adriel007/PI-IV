@@ -62,11 +62,24 @@
             <h2 class="font-semibold text-xl">Gerenciamento de Planilhas</h2>
 
             <!-- Área de upload (inicialmente visível) -->
-            <div id="upload-area" class="mt-4">
-              <input
-                type="file"
-                id="file-input"
-                class="mt-4 border border-gray-300 p-2 rounded-lg w-full" />
+            <div
+              id="upload-area"
+              class="mt-6 border border-gray-900 rounded-xl shadow-sm p-4">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                Envio da planilha
+              </h3>
+              <label
+                for="file-input"
+                class="flex flex-col items-center justify-center w-full h-48 p-6 border-2 border-dashed border-gray-400 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                <i class="bi bi-upload text-3xl text-gray-500 mb-2"></i>
+                <span class="text-gray-500">
+                  Clique ou arraste o arquivo aqui
+                </span>
+                <span class="text-sm text-red-400 mt-1">
+                  Somente CSV são suportados
+                </span>
+                <input type="file" id="file-input" class="hidden" />
+              </label>
               <button
                 id="load-local-btn"
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-blue-700">
@@ -96,8 +109,33 @@
             <button
               id="toggle-upload-btn"
               class="bg-gray-600 text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-gray-700">
-              <i class="bi bi-eye-slash"></i> Alternar Área de Upload
+              <i class="bi bi-eye-slash"></i> Ocultar área de contexto para IA
             </button>
+
+            <div
+              id="multi-upload-area"
+              class="hidden mt-6 border border-gray-900 rounded-xl shadow-sm p-4">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                Envio de múltiplos arquivos para Análise com IA
+              </h3>
+              <label
+                for="multi-file-input"
+                class="flex flex-col items-center justify-center w-full h-48 p-6 border-2 border-dashed border-gray-400 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                <i class="bi bi-upload text-3xl text-gray-500 mb-2"></i>
+                <span class="text-gray-500">
+                  Clique ou arraste os arquivos aqui
+                </span>
+                <span class="text-sm text-red-400 mt-1">
+                  Arquivos de áudio, video não são suportados
+                </span>
+
+                <input
+                  type="file"
+                  id="multi-file-input"
+                  class="hidden"
+                  multiple />
+              </label>
+            </div>
           </div>
         </div>
 
@@ -183,12 +221,4 @@
   </body>
 
   <script src="./scripts.js"></script>
-  <script src="./modules/alerts.js"></script>
-  <script src="./modules/charts.js"></script>
-  <script src="./modules/dataProcessing.js"></script>
-  <script src="./modules/theme.js"></script>
-  <script src="./modules/tabs.js"></script>
-  <script src="./modules/fileHandlers.js"></script>
-  <script src="./modules/ipcHandlers.js"></script>
-  <script src="./modules/config.js"></script>
 </html>
