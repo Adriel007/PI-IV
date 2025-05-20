@@ -10,6 +10,10 @@ const setupFileHandlers = () => {
   document.getElementById("load-local-btn").onclick = () => {
     const fileInput = document.getElementById("file-input");
     const file = fileInput.files[0];
+    const fileAreaInput = document.getElementById("multi-file-input");
+    const fileArea = fileAreaInput.files[0];
+
+    console.log(file, fileArea);
 
     if (!file) {
       showAlert("Nenhum arquivo selecionado.", "error");
