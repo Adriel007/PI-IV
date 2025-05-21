@@ -13,7 +13,7 @@ const setupIpcHandlers = () => {
 
       multiReader.onload = (event) => {
         const csvContent = event.target.result;
-        const data = parseCSV(csvContent);
+        const data = parseCSVSpecial(csvContent);
 
         const wordCloud = wordCloudData(
           data,

@@ -1,8 +1,38 @@
 const parseCSV = (content) => {
   const lines = content.split("\n").filter((line) => line.trim() !== "");
-  const headers = lines[0].split(",").map((h) => h.trim());
+
+  // Verifica se há aspas indicando necessidade de parsing mais robusto
+  const hasQuotedFields = content.includes('"') || content.includes("'");
+
+  const parseLine = (line) => {
+    if (!hasQuotedFields) {
+      // Simples: separa por vírgula
+      return line.split(",").map((v) => v.trim());
+    }
+
+    // Avançado: divide respeitando aspas
+    const regex = /("([^"]*(?:""[^"]*)*)"|'([^']*(?:''[^']*)*)'|[^,]+)/g;
+    const values = [];
+    let match;
+    while ((match = regex.exec(line)) !== null) {
+      let value = match[0].trim();
+
+      // Remove aspas externas se houver
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1).replace(/""/g, '"').replace(/''/g, "'");
+      }
+
+      values.push(value);
+    }
+    return values;
+  };
+
+  const headers = parseLine(lines[0]);
   return lines.slice(1).map((line) => {
-    const values = line.split(",").map((v) => v.trim());
+    const values = parseLine(line);
     const obj = {};
     headers.forEach((header, index) => {
       obj[header] = values[index];
