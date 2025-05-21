@@ -1,28 +1,27 @@
 const parseCSV = (content) => {
   const lines = content.split("\n").filter((line) => line.trim() !== "");
 
-  // Verifica se há aspas indicando necessidade de parsing mais robusto
+  // Detecta se há campos entre aspas
   const hasQuotedFields = content.includes('"') || content.includes("'");
 
   const parseLine = (line) => {
     if (!hasQuotedFields) {
-      // Simples: separa por vírgula
+      // Separação simples por vírgula
       return line.split(",").map((v) => v.trim());
     }
 
-    // Avançado: divide respeitando aspas
+    // Expressão regular para capturar valores respeitando aspas
     const regex = /("([^"]*(?:""[^"]*)*)"|'([^']*(?:''[^']*)*)'|[^,]+)/g;
     const values = [];
     let match;
     while ((match = regex.exec(line)) !== null) {
       let value = match[0].trim();
 
-      // Remove aspas externas se houver
-      if (
-        (value.startsWith('"') && value.endsWith('"')) ||
-        (value.startsWith("'") && value.endsWith("'"))
-      ) {
-        value = value.slice(1, -1).replace(/""/g, '"').replace(/''/g, "'");
+      // Remove aspas externas e trata aspas internas duplicadas
+      if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1).replace(/""/g, '"');
+      } else if (value.startsWith("'") && value.endsWith("'")) {
+        value = value.slice(1, -1).replace(/''/g, "'");
       }
 
       values.push(value);
