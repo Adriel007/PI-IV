@@ -123,6 +123,7 @@ const predictFuture = async ({ labels, desistencias }) => {
 
 // EXAMPLE ////////////////////////////////////////
 const wordCloudData = (data, key) => {
+  console.log(data, key);
   const raw = data.map((row) => row[key].split(", ")).flat();
   const resumo = {};
 
