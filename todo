@@ -1,85 +1,19 @@
-### 1. Implementação de Funcionalidades Básicas
-- [ x ] Implementar validação de dados no DataProcessor [/app/data/data_processor.py]
-- [ x ] Adicionar tratamento de erros mais robusto no data_loader.py [/app/data/data_loader.py]
-- [ x ] Implementar função de exportação de dados analisados [/app/data/data_processor.py]
-- [ x ] Adicionar logs para rastreamento de operações [/app/data/data_loader.py, /app/data/data_processor.py]
-### 2. Interface do Usuário
-- [ x ] Melhorar o layout da interface principal [/app/ui/main_window.py]
-- [ x ] Implementar filtros avançados para análise de dados [/app/ui/charts.py]
-- [ x ] Adicionar opção de exportação de gráficos [/app/ui/charts.py]
-- [ x ] Implementar tela de configurações gerais [/app/ui/main_window.py]
-- [   ] Interface de manipulação de banco de dados [/app/ui/main_window.py]
-- [   ] Adicionar tooltips informativos nos botões e campos
-- [   ] Implementar feedback visual para operações longas
-- [   ] Melhorar responsividade da interface
-- [   ] Adicionar atalhos de teclado para operações comuns
-### 3. Análise Preditiva
-- [ x ] Implementar mais modelos de machine learning [/app/prediction/prediction.py]
-- [ x ] Adicionar validação cruzada para os modelos [/app/prediction/prediction.py]
-- [ x ] Implementar feature engineering [/app/prediction/prediction.py]
-- [ x ] Adicionar métricas de avaliação adicionais [/app/prediction/prediction.py]
-- [ x ] Criar visualizações comparativas entre modelos [/app/prediction/prediction.py]
-- [   ] Implementar análise de sazonalidade
-- [   ] Adicionar detecção de outliers
-- [   ] Implementar análise de correlação entre variáveis
-### 4. Integração com Banco de Dados
-- [ x ] Implementar CRUD completo no MongoDB [/app/data/db_manager.py]
-- [ x ] Adicionar cache de dados [/app/data/db_manager.py]
-- [ x ] Implementar backup automático [/app/data/db_manager.py]
-- [ x ] Adicionar migração de dados [/app/data/db_manager.py]
-- [   ] Implementar índices para otimização de consultas
-- [   ] Adicionar compressão de dados
-- [   ] Implementar versionamento de schema
-### 5. Integração com Google Sheets
-- [ x ] Completar implementação da API do Google Sheets [/app/data/data_loader.py]
-- [ x ] Adicionar sincronização automática [/app/data/data_loader.py]
-- [ x ] Implementar cache de dados remotos [/app/data/data_loader.py]
-- [ x ] Adicionar controle de versão de planilhas [/app/data/data_loader.py]
-- [   ] Implementar validação de formato de planilhas
-- [   ] Adicionar suporte a múltiplas planilhas
-- [   ] Implementar atualização em tempo real
-### 6. Documentação
-- [   ] Criar documentação técnica detalhada [/README.md]
-- [   ] Adicionar docstrings em todas as funções [Todos os arquivos .py]
-- [   ] Criar manual do usuário [/docs/user_manual.md] (novo arquivo)
-- [   ] Documentar APIs e integrações [/docs/api_docs.md] (novo arquivo)
-- [   ] Adicionar diagramas de arquitetura
-- [   ] Criar guia de contribuição
-- [   ] Documentar processo de deploy
-### 7. Segurança
-- [   ] Implementar sistema de autenticação [/app/auth/] (nova pasta)
-- [   ] Implementar controle de acesso [/app/auth/]
-- [   ] Adicionar validação de entrada de dados [/app/data/data_validator.py] (novo arquivo)
-- [   ] Implementar criptografia de dados sensíveis
-- [   ] Adicionar auditoria de operações
-- [   ] Implementar rate limiting
-- [   ] Adicionar proteção contra SQL injection
-### 8. Otimizações
-- [   ] Otimizar processamento de dados grandes [/app/data/data_processor.py]
-- [   ] Implementar processamento paralelo
-- [   ] Otimizar uso de memória
-- [   ] Melhorar performance de consultas
-- [   ] Implementar cache de resultados de análise
-- [   ] Otimizar carregamento de gráficos
-### 9. Recursos Adicionais
-- [   ] Adicionar relatórios automáticos [/app/reports/] (nova pasta)
-- [   ] Implementar exportação em diferentes formatos [/app/utils/export.py] (novo arquivo)
-- [   ] Adicionar notificações por email
-- [   ] Implementar agendamento de tarefas
-- [   ] Adicionar suporte a plugins
-- [   ] Implementar backup na nuvem
-### 10. Testes
-- [   ] Implementar testes unitários
-- [   ] Adicionar testes de integração
-- [   ] Implementar testes de interface
-- [   ] Criar testes de performance
-- [   ] Adicionar cobertura de código
-- [   ] Implementar testes de regressão
----
-### Consertar
-- [   ] Fonte e fundo branco em tabs no Windows em tema escuro [/app/ui/charts.py]
-- [   ] Ícones não carregam em Windows [/app/ui/main_window.py]
-- [   ] Plot correto dos gráficos [/app/ui/charts.py]
-- [   ] Corrigir memory leaks em análises longas
-- [   ] Resolver problemas de codificação em arquivos CSV
-- [   ] Corrigir bugs de interface no modo escuro
+### 1. Front
+- [ ] Aba para cada grupo de gráficos
+- [ ] Visualizar um card dos arquivos carregados (com opção de remover)
+
+### 2. Back
+- [ ] Pré-processamento de dados qualitativos (limpeza e categorização)
+- [ ] Geração de word cloud por campo qualitativo
+- [ ] Agrupamento de perfis com base em respostas abertas (ex: motivos, renda, trabalho)
+- [ ] Cruzamento com dados de desistência (por curso, período, perfil)
+
+### 3. ML
+- [ ] Regressão linear para evasão por curso
+- [ ] Gráficos para qualitativos (frequência de palavras, barras por categoria)
+- [ ] Análise de cluster leve (perfil de ingressantes)
+- [ ] Correlação qualitativo x evasão (ex: motivos mais comuns entre desistentes)
+
+### 4. Fix
+- [ ] Auto detecção da versão python instalada para chamar corretamente
+- [ ] Gráficos pizza extremamente grandes
