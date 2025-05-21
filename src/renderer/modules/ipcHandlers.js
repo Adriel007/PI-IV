@@ -23,7 +23,7 @@ const setupIpcHandlers = () => {
         cloudWord(wordCloud);
       };
 
-      multiReader.readAsText(fileArea[0]);
+      multiReader.readAsText(fileArea);
       //////////////////////////////////////////////////
 
       if (!file) {

@@ -20,7 +20,7 @@ const setupFileHandlers = () => {
       // const fileContent = event.target.result;
     };
 
-    multiReader.readAsText(fileArea[0]);
+    multiReader.readAsText(fileArea);
     //////////////////////////////////////////////////
 
     if (!file) {
