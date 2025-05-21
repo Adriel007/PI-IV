@@ -13,14 +13,16 @@ const setupFileHandlers = () => {
 
     // EXAMPLE ////////////////////////////////////////
     const fileAreaInput = document.getElementById("multi-file-input");
-    const fileArea = fileAreaInput.files[0];
-    const multiReader = new FileReader();
+    if (!fileAreaInput.files.length === 0) {
+      const fileArea = fileAreaInput.files[0];
+      const multiReader = new FileReader();
 
-    multiReader.onload = (event) => {
-      // const fileContent = event.target.result;
-    };
+      multiReader.onload = (event) => {
+        // const fileContent = event.target.result;
+      };
 
-    multiReader.readAsText(fileArea);
+      multiReader.readAsText(fileArea);
+    }
     //////////////////////////////////////////////////
 
     if (!file) {
