@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const { spawn } = require("child_process");
+const { spawn, execSync } = require("child_process");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -22,7 +22,14 @@ app.whenReady().then(createWindow);
 // 📡 IPC para fazer análise IA com Python
 ipcMain.handle("analisar-dados", async (event, csvContent) => {
   return new Promise((resolve, reject) => {
-    const pythonProcess = spawn("python3", ["src/ml/analysis.py"], {
+    let pythonCmd;
+    try {
+      pythonCmd = getPythonCommand();
+    } catch (err) {
+      return reject(err);
+    }
+
+    const pythonProcess = spawn(pythonCmd, ["src/ml/analysis.py"], {
       stdio: ["pipe", "pipe", "pipe"],
     });
 
@@ -49,3 +56,20 @@ ipcMain.handle("analisar-dados", async (event, csvContent) => {
     pythonProcess.stdin.end();
   });
 });
+
+function getPythonCommand() {
+  const commands = ["python3", "python", "py"];
+  for (const cmd of commands) {
+    try {
+      const version = execSync(`${cmd} --version`, {
+        stdio: "pipe",
+      }).toString();
+      if (version.toLowerCase().includes("python")) {
+        return cmd;
+      }
+    } catch (e) {
+      // comando não disponível, tenta o próximo
+    }
+  }
+  throw new Error("Python não encontrado no sistema.");
+}
