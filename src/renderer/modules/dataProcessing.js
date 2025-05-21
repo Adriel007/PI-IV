@@ -90,3 +90,15 @@ const predictFuture = async ({ labels, desistencias }) => {
     console.error("Erro na análise Python:", error);
   }
 };
+
+// EXAMPLE ////////////////////////////////////////
+const wordCloudData = (data, key) => {
+  const raw = data.map((row) => row[key].split(", ")).flat();
+  const resumo = {};
+
+  raw.forEach((row) => {
+    !resumo[row] ? (resumo[row] = 0) : (resumo[row] += 1);
+  });
+
+  return resumo;
+};

@@ -10,20 +10,26 @@ const setupFileHandlers = () => {
   document.getElementById("load-local-btn").onclick = () => {
     const fileInput = document.getElementById("file-input");
     const file = fileInput.files[0];
+
+    // EXAMPLE ////////////////////////////////////////
     const fileAreaInput = document.getElementById("multi-file-input");
     const fileArea = fileAreaInput.files[0];
+    const multiReader = new FileReader();
 
-    console.log(file, fileArea);
+    multiReader.onload = (event) => {
+      // const fileContent = event.target.result;
+    };
+
+    multiReader.readAsText(fileArea[0]);
+    //////////////////////////////////////////////////
 
     if (!file) {
       showAlert("Nenhum arquivo selecionado.", "error");
       return;
     }
-
     const reader = new FileReader();
     reader.onload = (event) => {
-      const fileContent = event.target.result;
-      console.log("Conteúdo do arquivo:", fileContent);
+      // const fileContent = event.target.result;
       showAlert("Arquivo carregado com sucesso!");
     };
 

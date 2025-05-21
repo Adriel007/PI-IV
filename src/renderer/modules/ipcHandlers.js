@@ -6,6 +6,26 @@ const setupIpcHandlers = () => {
       const fileInput = document.getElementById("file-input");
       const file = fileInput.files[0];
 
+      // EXAMPLE ////////////////////////////////////////
+      const fileAreaInput = document.getElementById("multi-file-input");
+      const fileArea = fileAreaInput.files[0];
+      const multiReader = new FileReader();
+
+      multiReader.onload = (event) => {
+        const csvContent = event.target.result;
+        const data = parseCSV(csvContent);
+
+        const wordCloud = wordCloudData(
+          data,
+          "Motivo da escolha do curso (esta questão admite mais de uma resposta):"
+        );
+
+        cloudWord(wordCloud);
+      };
+
+      multiReader.readAsText(fileArea[0]);
+      //////////////////////////////////////////////////
+
       if (!file) {
         showAlert("Nenhum arquivo selecionado.", "error");
         return;
