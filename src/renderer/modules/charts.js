@@ -171,8 +171,24 @@ const plotChart = (data) => {
           display: true,
           text: "Distribuição dos alunos por semestre",
         },
+        datalabels: {
+          formatter: (value, context) => {
+            const total = context.chart.data.datasets[0].data.reduce(
+              (a, b) => a + b,
+              0
+            );
+            const percentage = ((value / total) * 100).toFixed(1) + "%";
+            return percentage;
+          },
+          color: "#fff",
+          font: {
+            weight: "bold",
+            size: 14,
+          },
+        },
       },
     },
+    plugins: [ChartDataLabels],
   });
 
   const ctx_bar = document.getElementById("chart-bar").getContext("2d");
