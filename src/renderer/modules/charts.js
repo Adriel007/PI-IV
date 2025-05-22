@@ -134,7 +134,7 @@ const plotChartSingle = (rawData) => {
       ],
     },
     options: {
-      responsive: true,
+      responsive: false,
       plugins: {
         title: {
           display: true,
@@ -180,7 +180,7 @@ const plotChart = (data) => {
       ],
     },
     options: {
-      responsive: true,
+      responsive: false,
       plugins: {
         legend: {
           position: "right",
