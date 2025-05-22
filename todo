@@ -1,6 +1,9 @@
 ### 1. Front
 - [ ] Aba para cada grupo de gráficos
 - [ ] Visualizar um card dos arquivos carregados (com opção de remover)
+- [ ] Retirar o primeiro gráfico de pizza
+- [ ] Colocar a valor/número no segundo gráfico de pizza, sem precisa botar o mouse em cima
+- [ ] Checkbox na parte que dá pra filtrar os cursos, anos, etc
 
 ### 2. Back
 - [ ] Pré-processamento de dados qualitativos (limpeza e categorização)
@@ -13,6 +16,7 @@
 - [ ] Gráficos para qualitativos (frequência de palavras, barras por categoria)
 - [ ] Análise de cluster leve (perfil de ingressantes)
 - [ ] Correlação qualitativo x evasão (ex: motivos mais comuns entre desistentes)
+- [ ] Classificação das palavras por Similaridade do Cosceno
 
 ### 4. Fix
 - [ ] Gráficos pizza extremamente grandes
