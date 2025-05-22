@@ -145,23 +145,26 @@ const plotChartSingle = (rawData) => {
         },
         datalabels: {
           formatter: (value, context) => {
-            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-            const percentage = (value / total * 100).toFixed(1) + '%';
+            const total = context.chart.data.datasets[0].data.reduce(
+              (a, b) => a + b,
+              0
+            );
+            const percentage = ((value / total) * 100).toFixed(1) + "%";
             return `${percentage}\n(${value})`;
           },
           color: "#fff",
           font: {
             weight: "bold",
-            size: 14
+            size: 14,
           },
           align: "center",
           anchor: "center",
-        }
-      }
+        },
+      },
     },
-    plugins: [ChartDataLabels]
+    plugins: [ChartDataLabels],
   });
-  
+};
 
 const plotChart = (data) => {
   const ctx_pie = document.getElementById("chart-pie").getContext("2d");
