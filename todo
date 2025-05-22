@@ -1,7 +1,6 @@
 ### 1. Front
 - [ ] Aba para cada grupo de gráficos
 - [ ] Visualizar um card dos arquivos carregados (com opção de remover)
-- [ ] Retirar o primeiro gráfico de pizza
 - [ ] Checkbox na parte que dá pra filtrar os cursos, anos, etc
 
 ### 2. Back
@@ -18,4 +17,3 @@
 - [ ] Classificação das palavras por Similaridade do Cosceno
 
 ### 4. Fix
-- [ ] Gráficos pizza extremamente grandes
