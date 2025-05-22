@@ -152,13 +152,14 @@ const plotChartSingle = (rawData) => {
             const percentage = ((value / total) * 100).toFixed(1) + "%";
             return `${percentage}\n(${value})`;
           },
-          color: "#fff",
+          color: "#000",
           font: {
             weight: "bold",
             size: 14,
           },
-          align: "center",
-          anchor: "center",
+          align: "end",
+          anchor: "end",
+          offset: 10,
         },
       },
     },
@@ -199,11 +200,14 @@ const plotChart = (data) => {
             return `${percentage}\n(${value})`;
           },
 
-          color: "#fff",
+          color: "#000",
           font: {
             weight: "bold",
             size: 14,
           },
+          align: "end",
+          anchor: "end",
+          offset: 10,
         },
       },
     },
