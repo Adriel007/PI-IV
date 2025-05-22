@@ -57,7 +57,6 @@ const setupIpcHandlers = () => {
           });
 
           plotChartSingle(data);
-          plotChart(processedData);
 
           const predictionData = await predictFuture(processedData);
           plotChartIA(predictionData);
