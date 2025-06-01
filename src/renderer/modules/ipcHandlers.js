@@ -8,20 +8,12 @@ const setupIpcHandlers = () => {
 
       // EXAMPLE ////////////////////////////////////////
       const fileAreaInput = document.getElementById("multi-file-input");
-      if (!fileAreaInput.files.length === 0) {
+      if (fileAreaInput.files.length > 0) {
         const fileArea = fileAreaInput.files[0];
         const multiReader = new FileReader();
 
         multiReader.onload = (event) => {
-          const csvContent = event.target.result;
-          const data = parseCSV(csvContent);
-
-          const wordCloud = wordCloudData(
-            data,
-            "Motivo da escolha do curso (esta questão admite mais de uma resposta):"
-          );
-
-          cloudWord(wordCloud);
+          // Something with LLM
         };
 
         multiReader.readAsText(fileArea);

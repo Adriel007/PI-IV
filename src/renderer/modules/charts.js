@@ -312,32 +312,3 @@ const showModelInfo = (modelInfo) => {
     confirmButtonText: "OK",
   });
 };
-
-// EXAMPLE ////////////////////////////////////////
-
-const cloudWord = (data) => {
-  const ctx = document.getElementById("chart-wordCloud").getContext("2d");
-
-  new Chart(ctx, {
-    type: "wordCloud",
-    data: {
-      labels: data.labels,
-      datasets: [
-        {
-          label: "Frequência",
-          data: data.values,
-          color: chartColors,
-        },
-      ],
-    },
-    options: {
-      responsive: false, // DESATIVAR responsividade
-      maintainAspectRatio: false, // NÃO manter proporção
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-    },
-  });
-};

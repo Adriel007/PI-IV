@@ -4,16 +4,9 @@
 - [ ] Checkbox na parte que dá pra filtrar os cursos, anos, etc
 
 ### 2. Back
-- [ ] Pré-processamento de dados qualitativos (limpeza e categorização)
-- [ ] Geração de word cloud por campo qualitativo
-- [ ] Agrupamento de perfis com base em respostas abertas (ex: motivos, renda, trabalho)
-- [ ] Cruzamento com dados de desistência (por curso, período, perfil)
 
 ### 3. ML
 - [ ] Regressão linear para evasão por curso
-- [ ] Gráficos para qualitativos (frequência de palavras, barras por categoria)
 - [ ] Análise de cluster leve (perfil de ingressantes)
-- [ ] Correlação qualitativo x evasão (ex: motivos mais comuns entre desistentes)
-- [ ] Classificação das palavras por Similaridade do Cosceno
 
 ### 4. Fix
