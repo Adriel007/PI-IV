@@ -1,4 +1,3 @@
-// Função genérica para exibir alertas
 const showAlert = (message, type = "success") => {
   if (type === "error") {
     Swal.fire({
@@ -16,3 +15,5 @@ const showAlert = (message, type = "success") => {
     });
   }
 };
+
+export { showAlert };

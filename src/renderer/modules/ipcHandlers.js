@@ -1,3 +1,12 @@
+import {
+  parseCSV,
+  validateData,
+  processData,
+  predictFuture,
+} from "./dataProcessing.js";
+import { showAlert } from "./alerts.js";
+import { plotChartIA, plotChartSingle, showModelInfo } from "./charts.js";
+
 const setupIpcHandlers = () => {
   // Botão "Análise IA"
   document
@@ -38,7 +47,7 @@ const setupIpcHandlers = () => {
           return;
         }
 
-        const processedData = processData(data); // ← processa antes!
+        const processedData = processData(data);
 
         try {
           Swal.fire({
@@ -66,3 +75,5 @@ const setupIpcHandlers = () => {
       reader.readAsText(file);
     });
 };
+
+export { setupIpcHandlers };

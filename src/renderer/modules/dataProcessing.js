@@ -119,3 +119,5 @@ const predictFuture = async ({ labels, desistencias }) => {
     console.error("Erro na análise Python:", error);
   }
 };
+
+export { parseCSV, validateData, processData, predictFuture };

@@ -1,4 +1,3 @@
-// Alternar entre abas
 const switchTab = (tabName) => {
   // Esconder todos os conteúdos
   document.getElementById("planilhas-content").classList.add("hidden");
@@ -74,3 +73,5 @@ const setupGraphTabs = () => {
 
   switchGraphTab("pie");
 };
+
+export { setupTabs, switchTab, switchGraphTab, setupGraphTabs };

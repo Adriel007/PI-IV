@@ -1,21 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const scripts = [
-    "alerts",
-    "charts",
-    "dataProcessing",
-    "tabs",
-    "fileHandlers",
-    "ipcHandlers",
-    "config",
-  ];
-  scripts.forEach((script) => {
-    const scriptElement = document.createElement("script");
-    scriptElement.src = `./modules/${script}.js`;
-    document.body.appendChild(scriptElement);
-  });
+import { setupFileHandlers } from "./modules/fileHandlers.js";
+import { setupIpcHandlers } from "./modules/ipcHandlers.js";
+import { setupTabs, switchTab } from "./modules/tabs.js";
 
-  setTimeout(() => {
-    document.getElementById("loading").classList.add("hidden");
-    document.getElementById("container").classList.remove("hidden");
-  }, 2_000);
+document.addEventListener("DOMContentLoaded", () => {
+  switchTab("planilhas");
+  setupTabs();
+  setupFileHandlers();
+  setupIpcHandlers();
+
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("container").classList.remove("hidden");
 });

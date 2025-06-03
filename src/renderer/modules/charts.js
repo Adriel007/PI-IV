@@ -312,3 +312,5 @@ const showModelInfo = (modelInfo) => {
     confirmButtonText: "OK",
   });
 };
+
+export { plotChartIA, showModelInfo, clearChart, plotChartSingle };

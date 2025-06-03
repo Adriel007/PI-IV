@@ -1,3 +1,5 @@
+import { showAlert } from "./alerts.js";
+
 const setupFileHandlers = () => {
   document.getElementById("connect-remote-btn").onclick = () => {
     Swal.fire(
@@ -60,3 +62,5 @@ const setupFileHandlers = () => {
     }
   };
 };
+
+export { setupFileHandlers };
