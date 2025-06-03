@@ -36,6 +36,10 @@ const chartColors = [
 ];
 
 const plotChartSingle = (rawData) => {
+  clearChart("chart-pie-single");
+  clearChart("chart-bar-single");
+  clearChart("chart-line-single");
+
   const cursos = [...new Set(rawData.map((row) => row.curso))];
   const periodos = [
     ...new Set(rawData.map((row) => `${row.ano}.${row.semestre}`)),
@@ -280,9 +284,12 @@ const plotChartIA = (data) => {
   });
 };
 
-const clearChart = () => {
-  const oldCanvas = document.getElementById("dropoutChart");
-  if (oldCanvas) oldCanvas.remove();
+const clearChart = (id) => {
+  const canvas = document.getElementById(id);
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 };
 
 const showModelInfo = (modelInfo) => {
